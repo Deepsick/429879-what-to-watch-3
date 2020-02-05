@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артем Макаров](https://up.htmlacademy.ru/react/3/user/429879).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Колодько](https://up.htmlacademy.ru/react/3/user/109264).
 
 ---
 
