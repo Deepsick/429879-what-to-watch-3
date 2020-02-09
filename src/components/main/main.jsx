@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-const Main = ({movie, movies}) => {
+const Main = ({movie, movies, onMovieTitleClick}) => {
   const {name, genre, year} = movie;
 
   return (
@@ -135,8 +135,11 @@ const Main = ({movie, movies}) => {
                       height="175"
                     />
                   </div>
-                  <h3 className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">
+                  <h3 className="small-movie-card__title" onClick={onMovieTitleClick}>
+                    <a
+                      className="small-movie-card__link"
+                      href="movie-page.html"
+                    >
                       {movieName}
                     </a>
                   </h3>
@@ -171,14 +174,13 @@ const Main = ({movie, movies}) => {
 };
 
 Main.propTypes = {
-  movie: PropTypes.arrayOf(
-      PropTypes.exact({
-        name: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        year: PropTypes.number.isRequired,
-      })
-  ).isRequired,
+  movie: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onMovieTitleClick: PropTypes.func.isRequired,
 };
 
 export default Main;
