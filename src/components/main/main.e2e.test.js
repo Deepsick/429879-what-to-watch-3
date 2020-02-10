@@ -1,20 +1,12 @@
 import React from 'react';
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import {movie, movies} from '../../mocks/test-data';
 import Main from './main.jsx';
-
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
-
-const movie = {
-  name: `The Grand Budapest Hotel`,
-  genre: `drama`,
-  year: 2014,
-};
-
-const movies = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
 
 it(`Should call callback on movie title click`, () => {
   const onMovieTitleClick = jest.fn();
