@@ -21,12 +21,13 @@ class MoviesList extends PureComponent {
     const {movies, onMovieTitleClick} = this.props;
     return (
       <div className="catalog__movies-list">
-        {movies.map((movie, index) => {
-          const {name, picture} = movie;
+        {movies.map((movie) => {
+          const {name, picture, id} = movie;
           return (
             <MovieCard
-              key={index}
+              key={id}
               picture={picture}
+              id={id}
               name={name}
               onMovieTitleClick={onMovieTitleClick}
               onHover={this._handleCardHover}
@@ -42,6 +43,7 @@ MoviesList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
 };

@@ -4,11 +4,12 @@ import MovieCard from './movie-card.jsx';
 import {movies, onCardHover, onMovieTitleClick} from '../../mocks/test-data';
 
 it(`Should render MovieCard component correctly`, () => {
-  const {name, picture} = movies[0];
+  const {name, picture, id} = movies[0];
   const node = renderer.create(
       <MovieCard
         name={name}
         picture={picture}
+        id={id}
         onHover={onCardHover}
         onMovieTitleClick={onMovieTitleClick}
       />

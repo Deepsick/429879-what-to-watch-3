@@ -9,13 +9,14 @@ Enzyme.configure({
 });
 
 it(`Should call callback on movie card mouseenter`, () => {
-  const {name, picture} = movies[0];
+  const {name, picture, id} = movies[0];
   const onCardHover = jest.fn((...args) => [...args]);
 
   const movieCard = shallow(
       <MovieCard
         name={name}
         picture={picture}
+        id={id}
         onHover={onCardHover}
         onMovieTitleClick={onMovieTitleClick}
       />
@@ -24,5 +25,5 @@ it(`Should call callback on movie card mouseenter`, () => {
   movieCard.simulate(`mouseenter`);
 
   expect(onCardHover.mock.calls.length).toBe(1);
-  expect(onCardHover.mock.calls[0][0]).toBe(name);
+  expect(onCardHover.mock.calls[0][0]).toBe(id);
 });
