@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import MoviesList from '../movies-list/movies-list.jsx';
 
 const Main = ({movie, movies, onMovieTitleClick}) => {
   const {name, genre, year} = movie;
@@ -122,32 +123,7 @@ const Main = ({movie, movies, onMovieTitleClick}) => {
               </a>
             </li>
           </ul>
-
-          <div className="catalog__movies-list">
-            {movies.map((movieName, index) => {
-              return (
-                <article key={index} className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img
-                      src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                      alt="Fantastic Beasts: The Crimes of Grindelwald"
-                      width="280"
-                      height="175"
-                    />
-                  </div>
-                  <h3 className="small-movie-card__title" onClick={onMovieTitleClick}>
-                    <a
-                      className="small-movie-card__link"
-                      href="movie-page.html"
-                    >
-                      {movieName}
-                    </a>
-                  </h3>
-                </article>
-              );
-            })}
-          </div>
-
+          <MoviesList movies={movies} onMovieTitleClick={onMovieTitleClick} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
@@ -179,7 +155,11 @@ Main.propTypes = {
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
 };
 

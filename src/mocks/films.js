@@ -1,12 +1,3 @@
-export const movie = {
-  name: `The Grand Budapest Hotel`,
-  genre: `drama`,
-  year: 2014,
-};
-
-export const onMovieTitleClick = () => {};
-export const onCardHover = () => {};
-
 export const movies = [
   {
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -49,3 +40,9 @@ export const movies = [
     id: `8`,
   },
 ];
+
+export const movie = {
+  name: `The Grand Budapest Hotel`,
+  genre: `drama`,
+  year: 2014,
+};
