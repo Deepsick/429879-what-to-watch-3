@@ -13,8 +13,8 @@ class MoviesList extends PureComponent {
     this._handleCardHover = this._handleCardHover.bind(this);
   }
 
-  _handleCardHover(cardName) {
-    this.setState({active: cardName});
+  _handleCardHover(cardId) {
+    this.setState({active: cardId});
   }
 
   render() {

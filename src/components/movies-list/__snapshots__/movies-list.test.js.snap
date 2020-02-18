@@ -10,6 +10,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -24,7 +25,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Fantastic Beasts: The Crimes of Grindelwald
       </a>
@@ -36,6 +37,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Bohemian Rhapsody"
@@ -50,7 +52,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Bohemian Rhapsody
       </a>
@@ -62,6 +64,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Macbeth"
@@ -76,7 +79,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Macbeth
       </a>
@@ -88,6 +91,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Aviator"
@@ -102,7 +106,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Aviator
       </a>
@@ -114,6 +118,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="We need to talk about Kevin"
@@ -128,7 +133,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         We need to talk about Kevin
       </a>
@@ -140,6 +145,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="What We Do in the Shadows"
@@ -154,7 +160,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         What We Do in the Shadows
       </a>
@@ -166,6 +172,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Revenant"
@@ -180,7 +187,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Revenant
       </a>
@@ -192,6 +199,7 @@ exports[`Should render MoviesList component correctly 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Johnny English"
@@ -206,7 +214,7 @@ exports[`Should render MoviesList component correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="#"
       >
         Johnny English
       </a>

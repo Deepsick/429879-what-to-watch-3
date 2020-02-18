@@ -46,3 +46,167 @@ export const movie = {
   genre: `drama`,
   year: 2014,
 };
+
+export const detailedMovies = [
+  {
+    name: `Fantastic Beasts: The Crimes of Grindelwald`,
+    poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    genre: `drama`,
+    id: `1`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `Bohemian Rhapsody`,
+    poster: `bohemian-rhapsody.jpg`,
+    genre: `drama`,
+    id: `2`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `Macbeth`,
+    poster: `macbeth.jpg`,
+    genre: `drama`,
+    id: `3`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `Aviator`,
+    poster: `aviator.jpg`,
+    genre: `drama`,
+    id: `4`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `We need to talk about Kevin`,
+    poster: `we-need-to-talk-about-kevin.jpg`,
+    genre: `drama`,
+    id: `5`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `What We Do in the Shadows`,
+    poster: `what-we-do-in-the-shadows.jpg`,
+    genre: `drama`,
+    id: `6`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `Revenant`,
+    poster: `revenant.jpg`,
+    genre: `drama`,
+    id: `7`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+  {
+    name: `Johnny English`,
+    poster: `johnny-english.jpg`,
+    genre: `drama`,
+    id: `8`,
+    year: 2014,
+    cover: `bg-the-grand-budapest-hotel.jpg`,
+    director: `Wes Andreson`,
+    starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    description: `
+      In the 1930s, the Grand Budapest Hotel is a popular European ski resort,
+      presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, 
+      becomes Gustave's friend and protege.
+  
+      Gustave prides himself on providing first-class service to the hotel's guests,
+      including satisfying the sexual needs of the many elderly women who stay there.
+      When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
+      priceless painting and the chief suspect in her murder.
+    `,
+  },
+];
+
