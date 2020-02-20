@@ -22,13 +22,15 @@ class MoviesList extends PureComponent {
     return (
       <div className="catalog__movies-list">
         {movies.map((movie) => {
-          const {name, picture, id} = movie;
+          const {name, picture, id, trailer} = movie;
           return (
             <MovieCard
               key={id}
               picture={picture}
               id={id}
               name={name}
+              trailer={trailer}
+              isVideo={this.state.active}
               onMovieTitleClick={onMovieTitleClick}
               onHover={this._handleCardHover}
             />
