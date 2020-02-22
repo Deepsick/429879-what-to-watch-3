@@ -2,21 +2,30 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../video-player/video-player.jsx';
 
-const MovieCard = ({name, picture, id, trailer, isVideo, onMovieTitleClick, onHover}) => {
+const MOVIE_DELAY = 1000;
+
+const MovieCard = ({name, picture, id, trailer, isVideo, onMovieTitleClick, onHover, onMouseOut}) => {
   const handleCardHover = (cardId) => (evt) => {
     evt.preventDefault();
-    onHover(cardId);
+    const playerTimeoutId = setTimeout(()=> {
+      onHover(cardId);
+      clearTimeout(playerTimeoutId);
+    }, MOVIE_DELAY);
   };
 
   const handleCardClick = (cardId) => (evt) => {
     evt.preventDefault();
     onMovieTitleClick(cardId);
   };
-  console.log(id)
+
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={handleCardHover(id)}>
-      {isVideo === id ?
-        <VideoPlayer src={trailer} isPlaying={true}/>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={handleCardHover(id)}
+      onMouseOut={onMouseOut}
+    >
+      {isVideo ?
+        <VideoPlayer src={trailer} isPlaying={true} muted={true} />
         : <Fragment>
           <div className="small-movie-card__image" onClick={handleCardClick(id)}>
             <img
@@ -44,8 +53,11 @@ MovieCard.propTypes = {
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  trailer: PropTypes.string.isRequired,
+  isVideo: PropTypes.bool.isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
+  onMouseOut: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

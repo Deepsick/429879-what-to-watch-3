@@ -11,14 +11,20 @@ class MoviesList extends PureComponent {
     };
 
     this._handleCardHover = this._handleCardHover.bind(this);
+    this._handleCardMouseOut = this._handleCardMouseOut.bind(this);
   }
 
   _handleCardHover(cardId) {
     this.setState({active: cardId});
   }
 
+  _handleCardMouseOut() {
+    this.setState({active: null});
+  }
+
   render() {
     const {movies, onMovieTitleClick} = this.props;
+    const {active} = this.state;
     return (
       <div className="catalog__movies-list">
         {movies.map((movie) => {
@@ -30,9 +36,10 @@ class MoviesList extends PureComponent {
               id={id}
               name={name}
               trailer={trailer}
-              isVideo={this.state.active}
+              isVideo={active === id}
               onMovieTitleClick={onMovieTitleClick}
               onHover={this._handleCardHover}
+              onMouseOut={this._handleCardMouseOut}
             />
           );
         })}
