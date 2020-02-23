@@ -3,7 +3,6 @@
 exports[`Should render VideoPlayer component correctly 1`] = `
 <video
   controls={true}
-  muted={true}
   width="100%"
 />
 `;

@@ -13,10 +13,11 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {src} = this.props;
+    const {src, muted} = this.props;
     const video = this._videoRef.current;
 
     video.src = src;
+    video.muted = muted;
 
     video.oncanplaythrough = () => this.setState({
       isLoading: false,
@@ -43,13 +44,11 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {muted} = this.props;
     return (
       <video
         ref={this._videoRef}
         controls
         width='100%'
-        muted={muted}
       ></video>
     );
   }
