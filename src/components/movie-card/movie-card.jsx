@@ -47,6 +47,10 @@ const MovieCard = ({name, picture, id, trailer, isVideo, onMovieTitleClick, onHo
       }
     </article>
   );
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseout', this.onResize.bind(this))
+  }
 };
 
 MovieCard.propTypes = {
