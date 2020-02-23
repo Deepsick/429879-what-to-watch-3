@@ -6,7 +6,7 @@ import {detailedMovies} from '../../mocks/test-data';
 it(`Should render MoviePage component correctly`, () => {
   const node = renderer.create(
       <MoviePage movie={detailedMovies[0]} />
-  );
+  ).toJSON();
 
   expect(node).toMatchSnapshot();
 });

@@ -1,14 +1,14 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {movies, onMovieTitleClick} from '../../mocks/test-data';
+import {movies, onMovieTitleClick, isVideo, trailer} from '../../mocks/test-data';
 import MovieCard from './movie-card.jsx';
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should call callback on movie card mouseenter`, () => {
+it(`Should call callback on movie card mouseenter`, (done) => {
   const {name, picture, id} = movies[0];
   const onCardHover = jest.fn((...args) => [...args]);
 
@@ -17,7 +17,10 @@ it(`Should call callback on movie card mouseenter`, () => {
         name={name}
         picture={picture}
         id={id}
+        trailer={trailer}
+        isVideo={isVideo}
         onHover={onCardHover}
+        onMouseOut={() => {}}
         onMovieTitleClick={onMovieTitleClick}
       />
   );
@@ -25,9 +28,34 @@ it(`Should call callback on movie card mouseenter`, () => {
   movieCard.simulate(`mouseenter`, {
     preventDefault: () => {},
   });
+  setTimeout(() => {
+    expect(onCardHover.mock.calls.length).toBe(1);
+    expect(onCardHover.mock.calls[0][0]).toBe(id);
+    done();
+  }, 1000);
+});
 
-  expect(onCardHover.mock.calls.length).toBe(1);
-  expect(onCardHover.mock.calls[0][0]).toBe(id);
+
+it(`Should call callback on movie card mouseleave`, () => {
+  const {name, picture, id} = movies[0];
+  const onMouseOut = jest.fn((...args) => [...args]);
+
+  const movieCard = shallow(
+      <MovieCard
+        name={name}
+        picture={picture}
+        id={id}
+        trailer={trailer}
+        isVideo={isVideo}
+        onHover={() => {}}
+        onMouseOut={onMouseOut}
+        onMovieTitleClick={onMovieTitleClick}
+      />
+  );
+
+  movieCard.simulate(`mouseout`);
+
+  expect(onMouseOut.mock.calls.length).toBe(1);
 });
 
 
@@ -41,6 +69,9 @@ it(`Should call callback on movie img or title click`, () => {
         picture={picture}
         id={id}
         onHover={() => {}}
+        trailer={trailer}
+        isVideo={isVideo}
+        onMouseOut={() => {}}
         onMovieTitleClick={onCardClick}
       />
   );

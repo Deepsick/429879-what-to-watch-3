@@ -12,7 +12,7 @@ it(`Should render Main component correctly`, () => {
         movies={movies}
         onMovieTitleClick={onMovieTitleClick}
       />
-  );
+  ).toJSON();
 
   expect(node).toMatchSnapshot();
 });

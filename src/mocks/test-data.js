@@ -6,47 +6,61 @@ export const movie = {
 
 export const onMovieTitleClick = () => {};
 export const onCardHover = () => {};
+export const onMouseOut = () => {};
+export const muted = true;
+export const isPlaying = true;
+
+export const trailer = `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`;
+export const isVideo = false;
 
 export const movies = [
   {
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     picture: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     id: `1`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `Bohemian Rhapsody`,
     picture: `bohemian-rhapsody.jpg`,
     id: `2`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `Macbeth`,
     picture: `macbeth.jpg`,
     id: `3`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `Aviator`,
     picture: `aviator.jpg`,
     id: `4`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `We need to talk about Kevin`,
     picture: `we-need-to-talk-about-kevin.jpg`,
     id: `5`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     name: `What We Do in the Shadows`,
     picture: `what-we-do-in-the-shadows.jpg`,
     id: `6`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     name: `Revenant`,
     picture: `revenant.jpg`,
     id: `7`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     name: `Johnny English`,
     picture: `johnny-english.jpg`,
     id: `8`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
 ];
 
