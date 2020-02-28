@@ -98,13 +98,14 @@ MoviePage.propTypes = {
   movie: PropTypes.exact({
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   }).isRequired,
   similarMovies: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -116,6 +117,7 @@ MoviePage.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   })).isRequired,
 };
 

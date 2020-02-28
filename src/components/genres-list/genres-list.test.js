@@ -1,20 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import GenresList from './genres-list.jsx';
 import {detailedMovies, genre} from '../../mocks/test-data';
-import Main from './main.jsx';
 
-const onMovieTitleClick = () => {};
-
-it(`Should render Main component correctly`, () => {
+it(`Should render GenresList component correctly`, () => {
   const node = renderer.create(
-      <Main
-        movie={detailedMovies[0]}
+      <GenresList
         movies={detailedMovies}
-        onMovieTitleClick={onMovieTitleClick}
         activeGenre={genre}
         setGenre={() => {}}
-      />
-  ).toJSON();
+      />).toJSON();
 
   expect(node).toMatchSnapshot();
 });

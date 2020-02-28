@@ -1,66 +1,10 @@
-export const movies = [
-  {
-    name: `Fantastic Beasts: The Crimes of Grindelwald`,
-    picture: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    id: `1`,
-    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    name: `Bohemian Rhapsody`,
-    picture: `bohemian-rhapsody.jpg`,
-    id: `2`,
-    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    name: `Macbeth`,
-    picture: `macbeth.jpg`,
-    id: `3`,
-    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    name: `Aviator`,
-    picture: `aviator.jpg`,
-    id: `4`,
-    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    name: `We need to talk about Kevin`,
-    picture: `we-need-to-talk-about-kevin.jpg`,
-    id: `5`,
-    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  },
-  {
-    name: `What We Do in the Shadows`,
-    picture: `what-we-do-in-the-shadows.jpg`,
-    id: `6`,
-    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  },
-  {
-    name: `Revenant`,
-    picture: `revenant.jpg`,
-    id: `7`,
-    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  },
-  {
-    name: `Johnny English`,
-    picture: `johnny-english.jpg`,
-    id: `8`,
-    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  },
-];
-
-export const movie = {
-  name: `The Grand Budapest Hotel`,
-  genre: `drama`,
-  year: 2014,
-};
-
-export const detailedMovies = [
+export default [
   {
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `drama`,
     id: `1`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -81,6 +25,7 @@ export const detailedMovies = [
     poster: `bohemian-rhapsody.jpg`,
     genre: `drama`,
     id: `2`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -101,6 +46,7 @@ export const detailedMovies = [
     poster: `macbeth.jpg`,
     genre: `drama`,
     id: `3`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -121,6 +67,7 @@ export const detailedMovies = [
     poster: `aviator.jpg`,
     genre: `drama`,
     id: `4`,
+    trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -141,6 +88,7 @@ export const detailedMovies = [
     poster: `we-need-to-talk-about-kevin.jpg`,
     genre: `drama`,
     id: `5`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -161,6 +109,7 @@ export const detailedMovies = [
     poster: `what-we-do-in-the-shadows.jpg`,
     genre: `drama`,
     id: `6`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -181,6 +130,7 @@ export const detailedMovies = [
     poster: `revenant.jpg`,
     genre: `drama`,
     id: `7`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,
@@ -199,8 +149,9 @@ export const detailedMovies = [
   {
     name: `Johnny English`,
     poster: `johnny-english.jpg`,
-    genre: `drama`,
+    genre: `comedy`,
     id: `8`,
+    trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     year: 2014,
     cover: `bg-the-grand-budapest-hotel.jpg`,
     director: `Wes Andreson`,

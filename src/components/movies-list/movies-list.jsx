@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
+import {ALL_GENRES} from '../../const';
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -22,17 +23,25 @@ class MoviesList extends PureComponent {
     this.setState({active: null});
   }
 
+  _filterMoviesByGenre(movies, genre) {
+    if (genre === ALL_GENRES) {
+      return movies;
+    }
+
+    return movies.filter((movie) => movie.genre === genre);
+  }
+
   render() {
-    const {movies, onMovieTitleClick} = this.props;
+    const {movies, onMovieTitleClick, activeGenre} = this.props;
     const {active} = this.state;
     return (
       <div className="catalog__movies-list">
-        {movies.map((movie) => {
-          const {name, picture, id, trailer} = movie;
+        {this._filterMoviesByGenre(movies, activeGenre).map((movie) => {
+          const {name, poster, id, trailer} = movie;
           return (
             <MovieCard
               key={id}
-              picture={picture}
+              picture={poster}
               id={id}
               name={name}
               trailer={trailer}
@@ -51,10 +60,18 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string.isRequired,
 };
 
 export default MoviesList;
