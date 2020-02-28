@@ -34,6 +34,7 @@ MoreLikeThis.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   })).isRequired,
 };
 

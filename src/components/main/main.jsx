@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
+import GenresList from '../genres-list/genres-list.jsx';
 
-const Main = ({movie, movies, onMovieTitleClick}) => {
+const Main = ({movie, movies, onMovieTitleClick, activeGenre, setGenre}) => {
   const {name, genre, year} = movie;
 
   return (
@@ -59,59 +60,8 @@ const Main = ({movie, movies, onMovieTitleClick}) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Kids & Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
-          <MoviesList movies={movies} onMovieTitleClick={onMovieTitleClick} />
+          <GenresList movies={movies} activeGenre={activeGenre} setGenre={setGenre} />
+          <MoviesList movies={movies} activeGenre={activeGenre} onMovieTitleClick={onMovieTitleClick} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
@@ -129,14 +79,30 @@ Main.propTypes = {
   movie: PropTypes.exact({
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    trailer: PropTypes.string.isRequired,
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  setGenre: PropTypes.func.isRequired,
 };
 
 export default Main;
