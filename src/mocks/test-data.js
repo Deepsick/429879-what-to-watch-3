@@ -12,6 +12,11 @@ export const isPlaying = true;
 
 export const trailer = `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`;
 export const isVideo = false;
+export const TabName = {
+  OVERVIEW: `overview`,
+  DETAILS: `details`,
+  REVIEWS: `reviews`,
+};
 
 export const movies = [
   {

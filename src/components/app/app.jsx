@@ -14,6 +14,10 @@ class App extends PureComponent {
     this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
   }
 
+  _getSimilarMovies(genre, movies) {
+    return movies.filter((movie) => movie.genre === genre).slice(4);
+  }
+
   _handleMovieTitleClick(id) {
     this.setState(() => ({
       movieId: id,
@@ -25,8 +29,9 @@ class App extends PureComponent {
 
     if (movieId) {
       const detailedFilm = detailedMovies.find((film) => film.id === movieId);
+      const {genre} = detailedFilm;
       detailedFilm.cover = `bg-${detailedFilm.poster}`;
-      return <MoviePage movie={detailedFilm} />;
+      return <MoviePage movie={detailedFilm} similarMovies={this._getSimilarMovies(genre, detailedMovies)} />;
     }
 
     return (
@@ -40,6 +45,7 @@ class App extends PureComponent {
 
   render() {
     const {movie, movies, detailedMovies} = this.props;
+    const {genre} = detailedMovies[0];
     return (
       <BrowserRouter>
         <Switch>
@@ -47,7 +53,7 @@ class App extends PureComponent {
             {this._renderFilmScreen(movie, movies, detailedMovies)}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage movie={detailedMovies[0]} />
+            <MoviePage movie={detailedMovies[0]} similarMovies={this._getSimilarMovies(genre, detailedMovies)} />
           </Route>
         </Switch>
       </BrowserRouter>
