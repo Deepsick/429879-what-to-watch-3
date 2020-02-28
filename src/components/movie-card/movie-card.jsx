@@ -32,6 +32,10 @@ class MovieCard extends PureComponent {
     };
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._timerId);
+  }
+
   render() {
     const {id, name, picture, trailer, isVideo, onMouseOut} = this.props;
 
@@ -64,10 +68,6 @@ class MovieCard extends PureComponent {
         }
       </article>
     );
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this._timerId);
   }
 }
 
