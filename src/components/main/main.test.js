@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {detailedMovies, genre} from '../../mocks/test-data';
+import {detailedMovies, genre, mockFunction, moviesCount} from '../../mocks/test-data';
 import Main from './main.jsx';
 
 const onMovieTitleClick = () => {};
@@ -12,7 +12,9 @@ it(`Should render Main component correctly`, () => {
         movies={detailedMovies}
         onMovieTitleClick={onMovieTitleClick}
         activeGenre={genre}
-        setGenre={() => {}}
+        setGenre={mockFunction}
+        addShownMovies={mockFunction}
+        shownMoviesCount={moviesCount}
       />
   ).toJSON();
 

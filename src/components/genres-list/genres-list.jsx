@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ALL_GENRES} from '../../const';
+import {ALL_GENRES, START_INDEX, MAX_GENRES_COUNT} from '../../const';
 
 const ACTIVE_CLASS = `catalog__genres-item--active`;
-const MAX_GENRES_COUNT = 9;
+
 
 const getGenresList = (movies) => {
-  return [ALL_GENRES, ...new Set(movies.map((movie) => movie.genre))].slice(MAX_GENRES_COUNT);
+  return [ALL_GENRES, ...new Set(movies.map((movie) => movie.genre))].slice(START_INDEX, MAX_GENRES_COUNT);
 };
 
 const handleGenreClick = (callback, genre) => (evt) => {

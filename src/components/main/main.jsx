@@ -4,9 +4,29 @@ import MoviesList from '../movies-list/movies-list.jsx';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import {ALL_GENRES, START_INDEX} from '../../const';
 
-const Main = ({movie, movies, onMovieTitleClick, activeGenre, setGenre}) => {
+const filterMoviesByGenre = (movies, genre) => {
+  if (genre === ALL_GENRES) {
+    return movies;
+  }
+
+  return movies.filter((movie) => movie.genre === genre);
+};
+
+const Main = ({
+  movie,
+  movies,
+  onMovieTitleClick,
+  activeGenre,
+  setGenre,
+  shownMoviesCount,
+  addShownMovies,
+}) => {
   const {name, genre, year} = movie;
+  const filteredMovies = filterMoviesByGenre(movies, activeGenre);
+  const isShowMoreButtonShown = filteredMovies.length > shownMoviesCount;
 
   return (
     <Fragment>
@@ -60,15 +80,20 @@ const Main = ({movie, movies, onMovieTitleClick, activeGenre, setGenre}) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList movies={movies} activeGenre={activeGenre} setGenre={setGenre} />
-          <MoviesList movies={movies} activeGenre={activeGenre} onMovieTitleClick={onMovieTitleClick} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          <GenresList
+            movies={movies}
+            activeGenre={activeGenre}
+            setGenre={setGenre}
+          />
+          <MoviesList
+            movies={filteredMovies.slice(START_INDEX, shownMoviesCount)}
+            onMovieTitleClick={onMovieTitleClick}
+          />
+          <ShowMoreButton
+            onClick={addShownMovies}
+            isShown={isShowMoreButtonShown}
+          />
         </section>
-
         <Footer />
       </div>
     </Fragment>
@@ -103,6 +128,8 @@ Main.propTypes = {
   onMovieTitleClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
+  addShownMovies: PropTypes.func.isRequired,
+  shownMoviesCount: PropTypes.number.isRequired,
 };
 
 export default Main;
