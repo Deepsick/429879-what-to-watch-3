@@ -7,6 +7,9 @@ export const movie = {
 export const onMovieTitleClick = () => {};
 export const onCardHover = () => {};
 export const onMouseOut = () => {};
+export const mockFunction = () => {};
+export const isShown = true;
+export const moviesCount = 8;
 export const muted = true;
 export const isPlaying = true;
 export const genre = `drama`;

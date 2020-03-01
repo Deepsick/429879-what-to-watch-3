@@ -28,7 +28,7 @@ class App extends PureComponent {
 
   _renderFilmScreen(movie, movies) {
     const {movieId} = this.state;
-    const {genre: activeGenre, setGenre} = this.props;
+    const {genre: activeGenre, setGenre, addShownMovies, shownMoviesCount} = this.props;
 
     if (movieId) {
       const detailedFilm = movies.find((film) => film.id === movieId);
@@ -44,6 +44,8 @@ class App extends PureComponent {
         onMovieTitleClick={this._handleMovieTitleClick}
         setGenre={setGenre}
         activeGenre={activeGenre}
+        addShownMovies={addShownMovies}
+        shownMoviesCount={shownMoviesCount}
       />
     );
   }
@@ -81,17 +83,24 @@ App.propTypes = {
     trailer: PropTypes.string.isRequired,
   })).isRequired,
   genre: PropTypes.string.isRequired,
+  shownMoviesCount: PropTypes.number.isRequired,
   setGenre: PropTypes.func.isRequired,
+  addShownMovies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
   genre: state.genre,
+  shownMoviesCount: state.shownMoviesCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setGenre(genre) {
     dispatch(ActionCreator.setGenre(genre));
+    dispatch(ActionCreator.resetShownMovies());
+  },
+  addShownMovies() {
+    dispatch(ActionCreator.addShownMovies());
   },
 });
 

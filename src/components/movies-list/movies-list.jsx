@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
-import {ALL_GENRES} from '../../const';
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -23,20 +22,12 @@ class MoviesList extends PureComponent {
     this.setState({active: null});
   }
 
-  _filterMoviesByGenre(movies, genre) {
-    if (genre === ALL_GENRES) {
-      return movies;
-    }
-
-    return movies.filter((movie) => movie.genre === genre);
-  }
-
   render() {
-    const {movies, onMovieTitleClick, activeGenre} = this.props;
+    const {movies, onMovieTitleClick} = this.props;
     const {active} = this.state;
     return (
       <div className="catalog__movies-list">
-        {this._filterMoviesByGenre(movies, activeGenre).map((movie) => {
+        {movies.map((movie) => {
           const {name, poster, id, trailer} = movie;
           return (
             <MovieCard
@@ -71,7 +62,6 @@ MoviesList.propTypes = {
     trailer: PropTypes.string.isRequired,
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
-  activeGenre: PropTypes.string.isRequired,
 };
 
 export default MoviesList;

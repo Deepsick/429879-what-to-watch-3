@@ -152,7 +152,44 @@ Array [
       </h2>
       <ul
         className="catalog__genres-list"
-      />
+      >
+        <li
+          className="catalog__genres-item
+          "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            All genres
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item
+          catalog__genres-item--active"
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            drama
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item
+          "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            comedy
+          </a>
+        </li>
+      </ul>
       <div
         className="catalog__movies-list"
       >
@@ -353,16 +390,7 @@ Array [
           </h3>
         </article>
       </div>
-      <div
-        className="catalog__more"
-      >
-        <button
-          className="catalog__button"
-          type="button"
-        >
-          Show more
-        </button>
-      </div>
+      
     </section>
     <footer
       className="page-footer"

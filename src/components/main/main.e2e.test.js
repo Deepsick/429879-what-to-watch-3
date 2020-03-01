@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {detailedMovies, genre} from '../../mocks/test-data';
+import {detailedMovies, genre, mockFunction, moviesCount} from '../../mocks/test-data';
 import Main from './main.jsx';
 
 Enzyme.configure({
@@ -17,7 +17,9 @@ it(`Should call callback on movie title click`, () => {
         movies={detailedMovies}
         onMovieTitleClick={onMovieTitleClick}
         activeGenre={genre}
-        setGenre={() => {}}
+        setGenre={mockFunction}
+        addShownMovies={mockFunction}
+        shownMoviesCount={moviesCount}
       />
   );
 
