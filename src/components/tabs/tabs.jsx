@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import Tab from './tab.jsx';
 
@@ -8,51 +8,37 @@ export const TabName = {
   REVIEWS: `reviews`,
 };
 
-
-class Tabs extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      active: props.activeTab,
-    };
-
-    this._handleTabClick = this._handleTabClick.bind(this);
-  }
-
-  _handleTabClick(tab) {
-    return (evt) => {
-      evt.preventDefault();
-      this.setState({active: tab});
-    };
-  }
-
-  _getTabs() {
-    return Object.values(TabName).map((tab, index) => {
-      return (
-        <Tab
-          key={index}
-          onClick={this._handleTabClick(tab)}
-          isActive={tab === this.state.active}
-          tabName={tab}
-        />
-      );
-    });
-  }
-
-  render() {
-    return (
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {this._getTabs()}
-        </ul>
-      </nav>
-    );
-  }
-}
-
-Tabs.propTypes = {
-  activeTab: PropTypes.string.isRequired,
+const handleTabClick = (tab, setActiveItem) => {
+  return (evt) => {
+    evt.preventDefault();
+    setActiveItem(tab);
+  };
 };
 
-export default Tabs;
+const getTabs = (active, onClick) => {
+  return Object.values(TabName).map((tab, index) => {
+    return (
+      <Tab
+        key={index}
+        onClick={handleTabClick(tab, onClick)}
+        isActive={tab === active}
+        tabName={tab}
+      />
+    );
+  });
+};
+
+const Tabs = ({setActiveItem, active}) => (
+  <nav className="movie-nav movie-card__nav">
+    <ul className="movie-nav__list">
+      {getTabs(active, setActiveItem)}
+    </ul>
+  </nav>
+);
+
+Tabs.propTypes = {
+  setActiveItem: PropTypes.func.isRequired,
+  active: PropTypes.string.isRequired,
+};
+
+export default memo(Tabs);

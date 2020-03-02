@@ -1,52 +1,31 @@
-import React, {PureComponent} from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
+import withHover from '../../hocs/with-hover/with-hover.jsx';
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const MovieCardWrapped = withHover(MovieCard);
 
-    this.state = {
-      active: null,
-    };
-
-    this._handleCardHover = this._handleCardHover.bind(this);
-    this._handleCardMouseOut = this._handleCardMouseOut.bind(this);
-  }
-
-  _handleCardHover(cardId) {
-    this.setState({active: cardId});
-  }
-
-  _handleCardMouseOut() {
-    this.setState({active: null});
-  }
-
-  render() {
-    const {movies, onMovieTitleClick} = this.props;
-    const {active} = this.state;
-    return (
-      <div className="catalog__movies-list">
-        {movies.map((movie) => {
-          const {name, poster, id, trailer} = movie;
-          return (
-            <MovieCard
-              key={id}
-              picture={poster}
-              id={id}
-              name={name}
-              trailer={trailer}
-              isVideo={active === id}
-              onMovieTitleClick={onMovieTitleClick}
-              onHover={this._handleCardHover}
-              onMouseOut={this._handleCardMouseOut}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+const MoviesList = ({movies, onMovieTitleClick, setActiveItem, resetActiveItem, active}) => (
+  <div className="catalog__movies-list">
+    {movies.map((movie) => {
+      const {name, poster, id, trailer} = movie;
+      const isVideo = active === id;
+      return (
+        <MovieCardWrapped
+          key={id}
+          picture={poster}
+          id={id}
+          name={name}
+          trailer={trailer}
+          isVideo={isVideo}
+          onMovieTitleClick={onMovieTitleClick}
+          onHover={setActiveItem}
+          onMouseOut={resetActiveItem}
+        />
+      );
+    })}
+  </div>
+);
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
@@ -62,6 +41,9 @@ MoviesList.propTypes = {
     trailer: PropTypes.string.isRequired,
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
+  setActiveItem: PropTypes.func.isRequired,
+  resetActiveItem: PropTypes.func.isRequired,
+  active: PropTypes.string,
 };
 
-export default MoviesList;
+export default memo(MoviesList);

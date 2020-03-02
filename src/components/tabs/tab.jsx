@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
 const ACTIVE_CLASS = `movie-nav__item--active`;
@@ -27,4 +27,4 @@ Tab.propTypes = {
   tabName: PropTypes.string.isRequired,
 };
 
-export default Tab;
+export default memo(Tab);

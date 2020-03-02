@@ -3,7 +3,6 @@
 exports[`Should render MovieCard component correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onMouseEnter={[Function]}
   onMouseOut={[Function]}
 >
   <div

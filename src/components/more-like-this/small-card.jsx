@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
 const SmallCard = ({picture, name}) => (
@@ -17,4 +17,4 @@ SmallCard.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default SmallCard;
+export default memo(SmallCard);

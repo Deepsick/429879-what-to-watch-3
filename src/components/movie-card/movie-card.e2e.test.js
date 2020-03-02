@@ -1,14 +1,14 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {movies, onMovieTitleClick, isVideo, trailer} from '../../mocks/test-data';
+import {movies, onMovieTitleClick, isVideo, trailer, mockFunction} from '../../mocks/test-data';
 import MovieCard from './movie-card.jsx';
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should call callback on movie card mouseenter`, (done) => {
+it(`Should call callback on movie card mouseenter`, () => {
   const {name, picture, id} = movies[0];
   const onCardHover = jest.fn((...args) => [...args]);
 
@@ -20,25 +20,22 @@ it(`Should call callback on movie card mouseenter`, (done) => {
         trailer={trailer}
         isVideo={isVideo}
         onHover={onCardHover}
-        onMouseOut={() => {}}
+        onMouseOut={mockFunction}
         onMovieTitleClick={onMovieTitleClick}
       />
   );
 
-  movieCard.simulate(`mouseenter`, {
+  movieCard.simulate(`mouseover`, {
     preventDefault: () => {},
   });
-  setTimeout(() => {
-    expect(onCardHover.mock.calls.length).toBe(1);
-    expect(onCardHover.mock.calls[0][0]).toBe(id);
-    done();
-  }, 1000);
-});
 
+  expect(onCardHover.mock.calls.length).toBe(1);
+  expect(onCardHover.mock.calls[0][0]).toBe(id);
+});
 
 it(`Should call callback on movie card mouseleave`, () => {
   const {name, picture, id} = movies[0];
-  const onMouseOut = jest.fn((...args) => [...args]);
+  const onMouseLeave = jest.fn((...args) => [...args]);
 
   const movieCard = shallow(
       <MovieCard
@@ -47,17 +44,16 @@ it(`Should call callback on movie card mouseleave`, () => {
         id={id}
         trailer={trailer}
         isVideo={isVideo}
-        onHover={() => {}}
-        onMouseOut={onMouseOut}
+        onHover={mockFunction}
+        onMouseOut={onMouseLeave}
         onMovieTitleClick={onMovieTitleClick}
       />
   );
 
   movieCard.simulate(`mouseout`);
 
-  expect(onMouseOut.mock.calls.length).toBe(1);
+  expect(onMouseLeave.mock.calls.length).toBe(1);
 });
-
 
 it(`Should call callback on movie img or title click`, () => {
   const {name, picture, id} = movies[0];

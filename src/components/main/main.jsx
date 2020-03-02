@@ -1,11 +1,14 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 import {ALL_GENRES, START_INDEX} from '../../const';
+
+const MoviesListWrapped = withActiveItem(MoviesList);
 
 const filterMoviesByGenre = (movies, genre) => {
   if (genre === ALL_GENRES) {
@@ -85,7 +88,7 @@ const Main = ({
             activeGenre={activeGenre}
             setGenre={setGenre}
           />
-          <MoviesList
+          <MoviesListWrapped
             movies={filteredMovies.slice(START_INDEX, shownMoviesCount)}
             onMovieTitleClick={onMovieTitleClick}
           />
@@ -132,4 +135,4 @@ Main.propTypes = {
   shownMoviesCount: PropTypes.number.isRequired,
 };
 
-export default Main;
+export default memo(Main);
