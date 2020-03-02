@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import SmallCard from './small-card.jsx';
 
@@ -38,4 +38,4 @@ MoreLikeThis.propTypes = {
   })).isRequired,
 };
 
-export default MoreLikeThis;
+export default memo(MoreLikeThis);

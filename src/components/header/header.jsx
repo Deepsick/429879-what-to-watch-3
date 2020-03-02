@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 const Header = () => (
   <header className="page-header movie-card__head">
@@ -18,4 +18,4 @@ const Header = () => (
   </header>
 );
 
-export default Header;
+export default memo(Header);

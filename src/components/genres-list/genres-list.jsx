@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {ALL_GENRES, START_INDEX, MAX_GENRES_COUNT} from '../../const';
 
@@ -48,4 +48,4 @@ GenresList.propTypes = {
   setGenre: PropTypes.func.isRequired,
 };
 
-export default GenresList;
+export default memo(GenresList);

@@ -1,8 +1,11 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
 import Tabs, {TabName} from '../tabs/tabs.jsx';
 import MoreLikeThis from '../more-like-this/more-like-this.jsx';
 import Footer from '../footer/footer.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+
+const TabsWrapped = withActiveItem(Tabs);
 
 const MoviePage = ({movie, similarMovies}) => {
   const {name, genre, year, poster, cover, director, starring, description} = movie;
@@ -66,7 +69,7 @@ const MoviePage = ({movie, similarMovies}) => {
             </div>
 
             <div className="movie-card__desc">
-              <Tabs activeTab={TabName.OVERVIEW} />
+              <TabsWrapped activeTab={TabName.OVERVIEW} />
 
               <div className="movie-rating">
                 <div className="movie-rating__score">8,9</div>
@@ -121,4 +124,4 @@ MoviePage.propTypes = {
   })).isRequired,
 };
 
-export default MoviePage;
+export default memo(MoviePage);

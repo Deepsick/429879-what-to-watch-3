@@ -8,6 +8,7 @@ export const onMovieTitleClick = () => {};
 export const onCardHover = () => {};
 export const onMouseOut = () => {};
 export const mockFunction = () => {};
+export const hoverDelay = 1000;
 export const isShown = true;
 export const moviesCount = 8;
 export const muted = true;
