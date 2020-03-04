@@ -16,7 +16,7 @@ const MovieCard = ({id, name, picture, trailer, isVideo, onMovieTitleClick, onHo
     onMouseOut={onMouseOut}
   >
     {isVideo ?
-      <VideoPlayer src={trailer} isPlaying={true} muted={true} />
+      <VideoPlayer src={trailer} isPlaying={true} muted={true} isControls={false} isFullScreen={false} />
       : <Fragment>
         <div className="small-movie-card__image" onClick={handleCardClick(id, onMovieTitleClick)}>
           <img

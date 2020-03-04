@@ -18,6 +18,10 @@ const filterMoviesByGenre = (movies, genre) => {
   return movies.filter((movie) => movie.genre === genre);
 };
 
+const handlePlayButtonClick = (id, callback) => () => {
+  callback(id);
+};
+
 const Main = ({
   movie,
   movies,
@@ -26,8 +30,9 @@ const Main = ({
   setGenre,
   shownMoviesCount,
   addShownMovies,
+  onPlayButtonClick,
 }) => {
-  const {name, genre, year} = movie;
+  const {name, genre, year, id} = movie;
   const filteredMovies = filterMoviesByGenre(movies, activeGenre);
   const isShowMoreButtonShown = filteredMovies.length > shownMoviesCount;
 
@@ -61,7 +66,11 @@ const Main = ({
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={handlePlayButtonClick(id, onPlayButtonClick)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -132,6 +141,7 @@ Main.propTypes = {
   activeGenre: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
   addShownMovies: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
 };
 

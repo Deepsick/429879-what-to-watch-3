@@ -5,15 +5,19 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+import VideoPlayer from '../video-player/video-player.jsx';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       movieId: null,
+      isVideo: null,
     };
 
     this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
+    this._handleVideoPlayButtonClick = this._handleVideoPlayButtonClick.bind(this);
+    this._handleVideoExitButtonClick = this._handleVideoExitButtonClick.bind(this);
   }
 
   _getSimilarMovies(genre, movies) {
@@ -26,15 +30,45 @@ class App extends PureComponent {
     }));
   }
 
+  _handleVideoPlayButtonClick(id) {
+    this.setState(() => ({
+      isVideo: id,
+    }));
+  }
+
+  _handleVideoExitButtonClick() {
+    this.setState(() => ({
+      isVideo: null,
+    }));
+  }
+
   _renderFilmScreen(movie, movies) {
-    const {movieId} = this.state;
+    const {movieId, isVideo} = this.state;
     const {genre: activeGenre, setGenre, addShownMovies, shownMoviesCount} = this.props;
+
+    if (isVideo) {
+      const videoMovie = movies.find((film) => film.id === isVideo);
+      const {trailer, poster} = videoMovie;
+      return <VideoPlayer
+        onExitButtonClick={this._handleVideoExitButtonClick}
+        src={trailer}
+        poster={poster}
+        isControls={true}
+        muted={false}
+        isPlaying={true}
+        isFullScreen={false}
+      />;
+    }
 
     if (movieId) {
       const detailedFilm = movies.find((film) => film.id === movieId);
       const {genre} = detailedFilm;
       detailedFilm.cover = `bg-${detailedFilm.poster}`;
-      return <MoviePage movie={detailedFilm} similarMovies={this._getSimilarMovies(genre, movies)} />;
+      return <MoviePage
+        movie={detailedFilm}
+        similarMovies={this._getSimilarMovies(genre, movies)}
+        onPlayButtonClick={this._handleVideoPlayButtonClick}
+      />;
     }
 
     return (
@@ -46,6 +80,7 @@ class App extends PureComponent {
         activeGenre={activeGenre}
         addShownMovies={addShownMovies}
         shownMoviesCount={shownMoviesCount}
+        onPlayButtonClick={this._handleVideoPlayButtonClick}
       />
     );
   }
@@ -61,7 +96,11 @@ class App extends PureComponent {
             {this._renderFilmScreen(movie, movies)}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage movie={movie} similarMovies={this._getSimilarMovies(genre, movies)} />
+            <MoviePage
+              movie={movie}
+              similarMovies={this._getSimilarMovies(genre, movies)}
+              onPlayButtonClick={this._handleVideoPlayButtonClick}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
