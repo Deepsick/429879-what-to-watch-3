@@ -56,7 +56,6 @@ class App extends PureComponent {
         isControls={true}
         muted={false}
         isPlaying={true}
-        isFullScreen={false}
       />;
     }
 

@@ -8,7 +8,6 @@ it(`Should render VideoPlayer component correctly`, () => {
       <VideoPlayer
         src={trailer}
         isPlaying={isPlaying}
-        isFullScreen={mockBool}
         isControls={mockBool}
         muted={muted}
         onExitButtonClick={mockFunction}

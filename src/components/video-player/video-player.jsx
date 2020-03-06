@@ -10,7 +10,6 @@ class VideoPlayer extends PureComponent {
     this.state = {
       isLoading: true,
       isPlaying: props.isPlaying,
-      isFullScreen: props.isFullScreen,
     };
 
     this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
@@ -28,16 +27,8 @@ class VideoPlayer extends PureComponent {
   }
 
   _handleFullScreenButtonClick() {
-    // const video = this._videoRef.current;
-    const {isFullScreen} = this.state;
-
-    // if (isFullScreen) {
-    //   video.requestFullscreen();
-    // } else {
-    //   video.exitFullscreen();
-    // }
-
-    this.setState({isFullScreen: !isFullScreen});
+    const video = this._videoRef.current;
+    video.requestFullscreen();
   }
 
   componentDidMount() {
@@ -111,7 +102,6 @@ VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   muted: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  isFullScreen: PropTypes.bool.isRequired,
   isControls: PropTypes.bool.isRequired,
   poster: PropTypes.string,
   onExitButtonClick: PropTypes.func,

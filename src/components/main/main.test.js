@@ -14,6 +14,7 @@ it(`Should render Main component correctly`, () => {
         activeGenre={genre}
         setGenre={mockFunction}
         addShownMovies={mockFunction}
+        onPlayButtonClick={mockFunction}
         shownMoviesCount={moviesCount}
       />
   ).toJSON();

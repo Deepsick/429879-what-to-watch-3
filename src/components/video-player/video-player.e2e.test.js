@@ -14,7 +14,6 @@ it(`Should VideoPlayer component work correctly - play/pause`, () => {
         src={trailer}
         isPlaying={isPlaying}
         muted={muted}
-        isFullScreen={mockBool}
         isControls={mockBool}
         onExitButtonClick={mockFunction}
       />
