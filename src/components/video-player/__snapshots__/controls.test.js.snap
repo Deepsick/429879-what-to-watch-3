@@ -1,12 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should render VideoPlayer component correctly 1`] = `
+exports[`Should render Controls component correctly 1`] = `
 Array [
-  <video
-    className="player__video"
-    poster=""
-    width="100%"
-  />,
   <button
     className="player__exit"
     onClick={[Function]}

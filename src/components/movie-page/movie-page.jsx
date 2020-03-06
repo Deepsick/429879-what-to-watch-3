@@ -7,8 +7,12 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
 const TabsWrapped = withActiveItem(Tabs);
 
-const MoviePage = ({movie, similarMovies}) => {
-  const {name, genre, year, poster, cover, director, starring, description} = movie;
+const handlePlayButtonClick = (id, callback) => () => {
+  callback(id);
+};
+
+const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
+  const {name, genre, year, poster, cover, director, starring, description, id} = movie;
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
@@ -44,7 +48,11 @@ const MoviePage = ({movie, similarMovies}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={handlePlayButtonClick(id, onPlayButtonClick)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -122,6 +130,7 @@ MoviePage.propTypes = {
     description: PropTypes.string.isRequired,
     trailer: PropTypes.string.isRequired,
   })).isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
 export default memo(MoviePage);
