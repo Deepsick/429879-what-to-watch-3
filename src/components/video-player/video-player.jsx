@@ -10,6 +10,7 @@ class VideoPlayer extends PureComponent {
     this.state = {
       isLoading: true,
       isPlaying: props.isPlaying,
+      progress: 0,
     };
 
     this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
@@ -61,6 +62,10 @@ class VideoPlayer extends PureComponent {
         isPlaying: false,
       });
     };
+
+    video.ontimeupdate = () => this.setState({
+      progress: Math.floor(video.currentTime),
+    });
   }
 
   componentWillUnmount() {
@@ -73,8 +78,8 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {poster, isControls, onExitButtonClick} = this.props;
-    const {isPlaying} = this.state;
+    const {poster, isControls, onExitButtonClick, duration} = this.props;
+    const {isPlaying, progress} = this.state;
 
     return (
       <Fragment>
@@ -90,6 +95,8 @@ class VideoPlayer extends PureComponent {
             onPlayButtonClick={this._handlePlayButtonClick}
             onFullScreenButtonClick={this._handleFullScreenButtonClick}
             isPlaying={isPlaying}
+            duration={duration}
+            progress={progress}
           />
         }
 

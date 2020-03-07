@@ -9,11 +9,11 @@ const MoreLikeThis = ({movies}) => {
 
       <div className="catalog__movies-list">
         {movies.map((movie) => {
-          const {id, poster, name} = movie;
+          const {id, preview, name} = movie;
           return (
             <SmallCard
               key={id}
-              picture={poster}
+              picture={preview}
               name={name}
             />
           );
@@ -26,15 +26,22 @@ const MoreLikeThis = ({movies}) => {
 MoreLikeThis.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scorescount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
     cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
   })).isRequired,
 };
 

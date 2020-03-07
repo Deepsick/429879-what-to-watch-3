@@ -1,17 +1,22 @@
 import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
+import {MAX_PERCENTAGE} from '../../const';
 
-const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreenButtonClick}) => (
+const getDragCoord = (duration, progress) => {
+  return progress / duration * MAX_PERCENTAGE;
+};
+
+const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreenButtonClick, duration, progress}) => (
   <Fragment>
     <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
 
     <div className="player__controls">
       <div className="player__controls-row">
         <div className="player__time">
-          <progress className="player__progress" value="30" max="100"></progress>
-          <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+          <progress className="player__progress" value={getDragCoord(duration, progress)} max="100"></progress>
+          <div className="player__toggler" style={{left: `${getDragCoord(duration, progress)}%`}}>Toggler</div>
         </div>
-        <div className="player__time-value">1:30:29</div>
+        <div className="player__time-value">{duration}</div>
       </div>
 
       <div className="player__controls-row">

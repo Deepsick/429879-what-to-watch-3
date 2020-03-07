@@ -2,10 +2,13 @@ import React, {PureComponent} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+import {getMovies} from '../../reducer/data/selectors.js';
+import {getGenre, getShownMoviesCount} from '../../reducer/state/selectors.js';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import VideoPlayer from '../video-player/video-player.jsx';
+import {START_INDEX, MAX_SIMILAR_MOVIES_COUNT} from '../../const';
 
 class App extends PureComponent {
   constructor(props) {
@@ -21,7 +24,7 @@ class App extends PureComponent {
   }
 
   _getSimilarMovies(genre, movies) {
-    return movies.filter((movie) => movie.genre === genre).slice(4);
+    return movies.filter((movie) => movie.genre === genre).slice(START_INDEX, MAX_SIMILAR_MOVIES_COUNT);
   }
 
   _handleMovieTitleClick(id) {
@@ -31,48 +34,45 @@ class App extends PureComponent {
   }
 
   _handleVideoPlayButtonClick(id) {
-    this.setState(() => ({
-      isVideo: id,
-    }));
+    this.setState({isVideo: id});
   }
 
   _handleVideoExitButtonClick() {
-    this.setState(() => ({
-      isVideo: null,
-    }));
+    this.setState({isVideo: null});
   }
 
-  _renderFilmScreen(movie, movies) {
+  _renderFilmScreen(movies) {
     const {movieId, isVideo} = this.state;
     const {genre: activeGenre, setGenre, addShownMovies, shownMoviesCount} = this.props;
 
     if (isVideo) {
       const videoMovie = movies.find((film) => film.id === isVideo);
-      const {trailer, poster} = videoMovie;
+      const {video, poster, duration} = videoMovie;
       return <VideoPlayer
         onExitButtonClick={this._handleVideoExitButtonClick}
-        src={trailer}
+        src={video}
         poster={poster}
         isControls={true}
         muted={false}
         isPlaying={true}
+        duration={duration}
       />;
     }
 
     if (movieId) {
-      const detailedFilm = movies.find((film) => film.id === movieId);
-      const {genre} = detailedFilm;
-      detailedFilm.cover = `bg-${detailedFilm.poster}`;
+      const movie = movies.find((film) => film.id === movieId);
+      const {genre} = movie;
+      console.log(movie, genre);
       return <MoviePage
-        movie={detailedFilm}
-        similarMovies={this._getSimilarMovies(genre, movies)}
+        movie={movie}
+        similarMovies={this._getSimilarMovies(genre, movies.filter((film) => film.id !== movieId))}
         onPlayButtonClick={this._handleVideoPlayButtonClick}
       />;
     }
 
     return (
       <Main
-        movie={movie}
+        movie={{}}
         movies={movies}
         onMovieTitleClick={this._handleMovieTitleClick}
         setGenre={setGenre}
@@ -86,21 +86,10 @@ class App extends PureComponent {
 
   render() {
     const {movies} = this.props;
-    const movie = movies[0];
-    const {genre} = movies[0];
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            {this._renderFilmScreen(movie, movies)}
-          </Route>
-          <Route exact path="/dev-film">
-            <MoviePage
-              movie={movie}
-              similarMovies={this._getSimilarMovies(genre, movies)}
-              onPlayButtonClick={this._handleVideoPlayButtonClick}
-            />
-          </Route>
+          {this._renderFilmScreen(movies)}
         </Switch>
       </BrowserRouter>
     );
@@ -110,15 +99,22 @@ class App extends PureComponent {
 App.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresСount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
     cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
   })).isRequired,
   genre: PropTypes.string.isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
@@ -127,9 +123,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  genre: state.genre,
-  shownMoviesCount: state.shownMoviesCount,
+  movies: getMovies(state),
+  genre: getGenre(state),
+  shownMoviesCount: getShownMoviesCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

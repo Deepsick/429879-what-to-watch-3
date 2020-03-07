@@ -1,9 +1,7 @@
-import {extend} from './utils.js';
-import movies from './mocks/films';
-import {ALL_GENRES, MOVIES_COUNT} from './const';
+import {extend} from '../../utils.js';
+import {ALL_GENRES, MOVIES_COUNT} from '../../const';
 
 const initialState = {
-  movies,
   genre: ALL_GENRES,
   shownMoviesCount: MOVIES_COUNT,
 };
@@ -46,6 +44,5 @@ const reducer = (state = initialState, action) => {
 
   return state;
 };
-
 
 export {reducer, ActionType, ActionCreator, initialState};
