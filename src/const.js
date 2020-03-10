@@ -10,16 +10,25 @@ export const Api = {
   TIMEOUT: 5000,
 };
 
+export const Auth = {
+  NO_AUTH: `NO_AUTH`,
+  AUTH: `AUTH`,
+};
+
 export const ReducerName = {
   DATA: `data`,
   STATE: `state`,
+  USER: `user`,
 };
 
 export const Path = {
   FILMS: `films`,
+  LOGIN: `login`,
 };
 
 export const Status = {
   OK: 200,
+  UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
 };
 
