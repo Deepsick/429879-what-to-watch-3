@@ -12,13 +12,26 @@ const handlePlayButtonClick = (id, callback) => () => {
 };
 
 const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
-  const {name, genre, year, poster, cover, director, starring, description, id} = movie;
+  const {
+    name,
+    genre,
+    year,
+    poster,
+    preview,
+    director,
+    bgColor,
+    starring,
+    description,
+    id,
+    rating,
+    scoresCount,
+  } = movie;
   return (
     <Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{backgroundColor: bgColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${cover}`} alt={name} />
+            <img src={poster} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -73,17 +86,17 @@ const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}`} alt={name} width="218" height="327" />
+              <img src={preview} alt={name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
               <TabsWrapped activeTab={TabName.OVERVIEW} />
 
               <div className="movie-rating">
-                <div className="movie-rating__score">8,9</div>
+                <div className="movie-rating__score">{rating}</div>
                 <p className="movie-rating__meta">
                   <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">240 ratings</span>
+                  <span className="movie-rating__count">{scoresCount} ratings</span>
                 </p>
               </div>
 
@@ -108,27 +121,41 @@ const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
 MoviePage.propTypes = {
   movie: PropTypes.exact({
     name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresScount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
     cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
   }).isRequired,
   similarMovies: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresScount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
     cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
   })).isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
 };

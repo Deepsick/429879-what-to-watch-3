@@ -20,7 +20,7 @@ const MovieCard = ({id, name, picture, trailer, isVideo, onMovieTitleClick, onHo
       : <Fragment>
         <div className="small-movie-card__image" onClick={handleCardClick(id, onMovieTitleClick)}>
           <img
-            src={`img/${picture}`}
+            src={picture}
             alt={name}
             width="280"
             height="175"
@@ -42,7 +42,7 @@ const MovieCard = ({id, name, picture, trailer, isVideo, onMovieTitleClick, onHo
 MovieCard.propTypes = {
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   trailer: PropTypes.string.isRequired,
   isVideo: PropTypes.bool.isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
