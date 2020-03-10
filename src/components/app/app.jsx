@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/state/state.js";
 import {getMovies} from '../../reducer/data/selectors.js';
 import {getGenre, getShownMoviesCount} from '../../reducer/state/selectors.js';
+import {getAuthStatus} from '../../reducer/user/selectors.js';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import VideoPlayer from '../video-player/video-player.jsx';
@@ -43,7 +44,7 @@ class App extends PureComponent {
 
   _renderFilmScreen(movies) {
     const {movieId, isVideo} = this.state;
-    const {genre: activeGenre, setGenre, addShownMovies, shownMoviesCount} = this.props;
+    const {genre: activeGenre, setGenre, addShownMovies, shownMoviesCount, authStatus} = this.props;
 
     if (isVideo) {
       const videoMovie = movies.find((film) => film.id === isVideo);
@@ -62,7 +63,7 @@ class App extends PureComponent {
     if (movieId) {
       const movie = movies.find((film) => film.id === movieId);
       const {genre} = movie;
-      console.log(movie, genre);
+
       return <MoviePage
         movie={movie}
         similarMovies={this._getSimilarMovies(genre, movies.filter((film) => film.id !== movieId))}
@@ -73,6 +74,7 @@ class App extends PureComponent {
     return (
       <Main
         movie={{}}
+        isAuth={authStatus}
         movies={movies}
         onMovieTitleClick={this._handleMovieTitleClick}
         setGenre={setGenre}
@@ -104,7 +106,7 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    scoresСount: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     trailer: PropTypes.string.isRequired,
     video: PropTypes.string.isRequired,
@@ -120,12 +122,14 @@ App.propTypes = {
   shownMoviesCount: PropTypes.number.isRequired,
   setGenre: PropTypes.func.isRequired,
   addShownMovies: PropTypes.func.isRequired,
+  authStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   genre: getGenre(state),
   shownMoviesCount: getShownMoviesCount(state),
+  authStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

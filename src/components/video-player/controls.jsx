@@ -1,9 +1,17 @@
 import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
 import {MAX_PERCENTAGE} from '../../const';
+import {SECONDS_IN_MINUTE} from '../../const';
 
 const getDragCoord = (duration, progress) => {
   return progress / duration * MAX_PERCENTAGE;
+};
+
+const getRunTime = (duration) => {
+  const minutes = Math.floor(duration / SECONDS_IN_MINUTE);
+  const seconds = Math.floor(duration - minutes * SECONDS_IN_MINUTE);
+
+  return `${minutes}:${seconds}`;
 };
 
 const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreenButtonClick, duration, progress}) => (
@@ -16,7 +24,7 @@ const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreen
           <progress className="player__progress" value={getDragCoord(duration, progress)} max="100"></progress>
           <div className="player__toggler" style={{left: `${getDragCoord(duration, progress)}%`}}>Toggler</div>
         </div>
-        <div className="player__time-value">{duration}</div>
+        <div className="player__time-value">{getRunTime(duration)}</div>
       </div>
 
       <div className="player__controls-row">
@@ -44,6 +52,8 @@ Controls.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  duration: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
 };
 
 export default memo(Controls);

@@ -1,7 +1,8 @@
 import React, {memo} from 'react';
+import PropTypes from 'prop-types';
 
-const Header = () => (
-  <header className="page-header movie-card__head">
+const Header = ({isAuth}) => (
+  <header className={`page-header ${isAuth && `movie-card__head`}`}>
     <div className="logo">
       <a className="logo__link">
         <span className="logo__letter logo__letter--1">W</span>
@@ -12,10 +13,16 @@ const Header = () => (
 
     <div className="user-block">
       <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+        {isAuth ?
+          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /> :
+          <a href="sign-in.html" className="user-block__link">Sign in</a>}
       </div>
     </div>
   </header>
 );
+
+Header.propTypes = {
+  isAuth: PropTypes.string.isRequired,
+};
 
 export default memo(Header);

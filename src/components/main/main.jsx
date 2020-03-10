@@ -31,6 +31,7 @@ const Main = ({
   shownMoviesCount,
   addShownMovies,
   onPlayButtonClick,
+  isAuth,
 }) => {
   const {name, genre, year, id} = movie;
   const filteredMovies = filterMoviesByGenre(movies, activeGenre);
@@ -45,7 +46,7 @@ const Main = ({
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header />
+        <Header isAuth={isAuth} />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -132,7 +133,7 @@ Main.propTypes = {
     genre: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    scoresСount: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     trailer: PropTypes.string.isRequired,
     video: PropTypes.string.isRequired,
@@ -146,6 +147,7 @@ Main.propTypes = {
   })).isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
+  isAuth: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
   addShownMovies: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
