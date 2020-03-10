@@ -2,6 +2,7 @@ export const ALL_GENRES = `All genres`;
 export const MOVIES_COUNT = 8;
 export const MAX_GENRES_COUNT = 9;
 export const START_INDEX = 0;
+export const SECONDS_IN_MINUTE = 60;
 export const MAX_PERCENTAGE = 100;
 export const MAX_SIMILAR_MOVIES_COUNT = 4;
 export const Api = {

@@ -11,6 +11,7 @@ class VideoPlayer extends PureComponent {
       isLoading: true,
       isPlaying: props.isPlaying,
       progress: 0,
+      duration: 0,
     };
 
     this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
@@ -42,6 +43,7 @@ class VideoPlayer extends PureComponent {
     video.oncanplaythrough = () => {
       this.setState({
         isLoading: false,
+        duration: video.duration,
       });
 
       if (isPlaying) {
@@ -78,8 +80,8 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {poster, isControls, onExitButtonClick, duration} = this.props;
-    const {isPlaying, progress} = this.state;
+    const {poster, isControls, onExitButtonClick} = this.props;
+    const {isPlaying, progress, duration} = this.state;
 
     return (
       <Fragment>

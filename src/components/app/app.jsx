@@ -104,7 +104,7 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    scoresСount: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     trailer: PropTypes.string.isRequired,
     video: PropTypes.string.isRequired,
