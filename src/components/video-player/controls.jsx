@@ -1,17 +1,37 @@
 import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
+import {MAX_PERCENTAGE} from '../../const';
+import {SECONDS_IN_MINUTE} from '../../const';
+import history from '../../history.js';
 
-const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreenButtonClick}) => (
+const getDragCoord = (duration, progress) => {
+  return duration > 0 && progress / duration * MAX_PERCENTAGE;
+};
+
+const getRunTime = (duration, progress) => {
+  const leftTime = duration - progress;
+  const minutes = Math.floor(leftTime / SECONDS_IN_MINUTE);
+  const seconds = Math.floor(leftTime - minutes * SECONDS_IN_MINUTE);
+
+  return `${minutes}:${seconds}`;
+};
+
+const handleExitButtonClick = (evt) => {
+  evt.preventDefault();
+  history.goBack();
+};
+
+const Controls = ({onPlayButtonClick, isPlaying, onFullScreenButtonClick, duration, progress}) => (
   <Fragment>
-    <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
+    <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
 
     <div className="player__controls">
       <div className="player__controls-row">
         <div className="player__time">
-          <progress className="player__progress" value="30" max="100"></progress>
-          <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+          <progress className="player__progress" value={getDragCoord(duration, progress)} max="100"></progress>
+          <div className="player__toggler" style={{left: `${getDragCoord(duration, progress)}%`}}>Toggler</div>
         </div>
-        <div className="player__time-value">1:30:29</div>
+        <div className="player__time-value">{getRunTime(duration, progress)}</div>
       </div>
 
       <div className="player__controls-row">
@@ -35,10 +55,11 @@ const Controls = ({onExitButtonClick, onPlayButtonClick, isPlaying, onFullScreen
 );
 
 Controls.propTypes = {
-  onExitButtonClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  duration: PropTypes.number.isRequired,
+  progress: PropTypes.number.isRequired,
 };
 
 export default memo(Controls);

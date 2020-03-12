@@ -1,19 +1,27 @@
 import React, {PureComponent, createRef, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Controls from './controls.jsx';
+
 class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
-
     this._videoRef = createRef();
 
     this.state = {
       isLoading: true,
+      film: props.src || this._getFilmById(),
       isPlaying: props.isPlaying,
+      progress: 0,
+      duration: 0,
     };
 
     this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
     this._handleFullScreenButtonClick = this._handleFullScreenButtonClick.bind(this);
+  }
+
+  _getFilmById() {
+    const {films, id} = this.props;
+    return films.find((film) => film.id === +id).video;
   }
 
   _handlePlayButtonClick() {
@@ -32,15 +40,17 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {src, muted, isPlaying} = this.props;
+    const {film, muted, isPlaying} = this.state;
+
     const video = this._videoRef.current;
 
-    video.src = src;
+    video.src = film;
     video.muted = muted;
 
     video.oncanplaythrough = () => {
       this.setState({
         isLoading: false,
+        duration: video.duration,
       });
 
       if (isPlaying) {
@@ -61,6 +71,10 @@ class VideoPlayer extends PureComponent {
         isPlaying: false,
       });
     };
+
+    video.ontimeupdate = () => this.setState({
+      progress: Math.floor(video.currentTime),
+    });
   }
 
   componentWillUnmount() {
@@ -69,12 +83,14 @@ class VideoPlayer extends PureComponent {
     video.oncanplaythrough = null;
     video.onplay = null;
     video.onpause = null;
+    video.ontimeupdate = null;
     video.src = ``;
   }
 
   render() {
-    const {poster, isControls, onExitButtonClick} = this.props;
-    const {isPlaying} = this.state;
+    const {isControls, onExitButtonClick} = this.props;
+    const {isPlaying, progress, duration, film} = this.state;
+    const {poster} = film;
 
     return (
       <Fragment>
@@ -90,6 +106,8 @@ class VideoPlayer extends PureComponent {
             onPlayButtonClick={this._handlePlayButtonClick}
             onFullScreenButtonClick={this._handleFullScreenButtonClick}
             isPlaying={isPlaying}
+            duration={duration}
+            progress={progress}
           />
         }
 
@@ -99,7 +117,26 @@ class VideoPlayer extends PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  promo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
+    cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+  }),
   muted: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   isControls: PropTypes.bool.isRequired,

@@ -8,28 +8,25 @@ const withHover = (Component) => {
     constructor(props) {
       super(props);
 
-      this._timerId = null;
+      this.state = {
+        isVideo: false,
+      };
 
+      this._timerId = null;
       this._handleMouseOut = this._handleMouseOut.bind(this);
       this._handleCardHover = this._handleCardHover.bind(this);
     }
 
-    _handleCardHover(cardId) {
-      const {onHover} = this.props;
-      return (evt) => {
-        evt.preventDefault();
-        this._timerId = setTimeout(()=> {
-          onHover(cardId);
-          clearTimeout(this._timerId);
-        }, MOVIE_DELAY);
-      };
+    _handleCardHover() {
+      this._timerId = setTimeout(()=> {
+        this.setState({isVideo: true});
+        clearTimeout(this._timerId);
+      }, MOVIE_DELAY);
     }
 
     _handleMouseOut() {
-      const {onMouseOut} = this.props;
-
       clearTimeout(this._timerId);
-      onMouseOut();
+      this.setState({isVideo: false});
     }
 
     componentWillUnmount() {
@@ -42,15 +39,11 @@ const withHover = (Component) => {
           {...this.props}
           onHover={this._handleCardHover}
           onMouseOut={this._handleMouseOut}
+          isVideo={this.state.isVideo}
         />
       );
     }
   }
-
-  WithHover.propTypes = {
-    onMouseOut: PropTypes.func.isRequired,
-    onHover: PropTypes.func.isRequired,
-  };
 
   return WithHover;
 };

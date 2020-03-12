@@ -1,42 +1,68 @@
 import React, {Fragment, memo} from 'react';
 import PropTypes from 'prop-types';
-import Tabs, {TabName} from '../tabs/tabs.jsx';
+import {useParams, Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import Tabs from '../tabs/tabs.jsx';
 import MoreLikeThis from '../more-like-this/more-like-this.jsx';
+import Details from './details.jsx';
+import Overview from './overview.jsx';
+import Reviews from './reviews.jsx';
 import Footer from '../footer/footer.jsx';
+import Logo from '../logo/logo.jsx';
+import Avatar from '../avatar/avatar.jsx';
+import CardButtons from '../card-buttons/card-buttons.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import {START_INDEX, MAX_SIMILAR_MOVIES_COUNT, TabName} from '../../const.js';
+import {Operation} from '../../reducer/data/data.js';
+import {getMovies, getComments} from '../../reducer/data/selectors.js';
+import {getAuthStatus, getAvatar} from '../../reducer/user/selectors.js';
 
-const TabsWrapped = withActiveItem(Tabs);
-
-const handlePlayButtonClick = (id, callback) => () => {
-  callback(id);
+const getFilmById = (movies, id) => {
+  return movies.find((movie) => movie.id === id);
 };
 
-const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
-  const {name, genre, year, poster, cover, director, starring, description, id} = movie;
+const getSimilarMovies = (movies, id, genre) => {
+  return movies
+    .filter((movie) => movie.genre === genre && movie.id !== id)
+    .slice(START_INDEX, MAX_SIMILAR_MOVIES_COUNT);
+};
+
+const MoviePage = ({movies, loadComments, postFavorite, comments, active, setActiveItem, isAuth, avatar}) => {
+  const {id: filmId} = useParams();
+  loadComments(filmId);
+  const normalizedId = +filmId;
+  const movie = getFilmById(movies, normalizedId);
+  const {
+    name,
+    genre,
+    year,
+    poster,
+    preview,
+    director,
+    duration,
+    bgColor,
+    starring,
+    description,
+    id,
+    isFavorite,
+    rating,
+    scoresCount,
+    cover,
+  } = movie;
+  const similarMovies = getSimilarMovies(movies, normalizedId, genre);
+
   return (
     <Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{backgroundColor: bgColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${cover}`} alt={name} />
+            <img src={cover} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-
           <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            <Logo />
+            <Avatar isAuth={isAuth} avatar={avatar} />
           </header>
 
           <div className="movie-card__wrap">
@@ -46,26 +72,11 @@ const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
                 <span className="movie-card__genre">{genre}</span>
                 <span className="movie-card__year">{year}</span>
               </p>
-
-              <div className="movie-card__buttons">
-                <button
-                  className="btn btn--play movie-card__button"
-                  type="button"
-                  onClick={handlePlayButtonClick(id, onPlayButtonClick)}
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
-              </div>
+              <CardButtons
+                isAddReview={true}
+                onClick={postFavorite}
+                isFavorite={isFavorite}
+                id={id} />
             </div>
           </div>
         </div>
@@ -73,26 +84,35 @@ const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}`} alt={name} width="218" height="327" />
+              <img src={preview} alt={name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <TabsWrapped activeTab={TabName.OVERVIEW} />
+              <Tabs setActiveItem={setActiveItem} active={active} />
+              
+              {active === TabName.OVERVIEW &&
+                <Overview
+                  rating={rating}
+                  scoresCount={scoresCount}
+                  director={director}
+                  description={description}
+                  starring={starring}
+                />
+              }
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">8,9</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">240 ratings</span>
-                </p>
-              </div>
+              {active === TabName.DETAILS &&
+                <Details
+                  director={director}
+                  starring={starring}
+                  genre={genre}
+                  released={year}
+                  runTime={duration}
+                />
+              }
 
-              <div className="movie-card__text">
-                <p>{description}</p>
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and other</strong></p>
-              </div>
+              {active === TabName.REVIEWS &&
+                <Reviews comments={comments}/>
+              }
             </div>
           </div>
         </div>
@@ -106,31 +126,42 @@ const MoviePage = ({movie, similarMovies, onPlayButtonClick}) => {
 };
 
 MoviePage.propTypes = {
-  movie: PropTypes.exact({
+  movies: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    trailer: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
     cover: PropTypes.string.isRequired,
+    bgColor: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
-  }).isRequired,
-  similarMovies: PropTypes.arrayOf(PropTypes.exact({
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    description: PropTypes.string.isRequired,
-    trailer: PropTypes.string.isRequired,
   })).isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
-export default memo(MoviePage);
+const mapStateToProps = (state) => ({
+  movies: getMovies(state),
+  comments: getComments(state),
+  isAuth: getAuthStatus(state),
+  avatar: getAvatar(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadComments(id) {
+    dispatch(Operation.loadComments(id));
+  },
+  postFavorite(id, status) {
+    dispatch(Operation.postFavorite(id, status));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(memo(MoviePage));
+

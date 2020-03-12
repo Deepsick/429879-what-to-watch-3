@@ -1,38 +1,35 @@
 import React, {Fragment, memo} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import VideoPlayer from '../video-player/video-player.jsx';
+import VideoPreview from '../video-preview/video-preview.jsx';
+import {AppRoute} from '../../const.js';
 
-const handleCardClick = (cardId, onMovieTitleClick) => {
-  return (evt) => {
-    evt.preventDefault();
-    onMovieTitleClick(cardId);
-  };
-};
-
-const MovieCard = ({id, name, picture, trailer, isVideo, onMovieTitleClick, onHover, onMouseOut}) => (
+const MovieCard = ({id, name, picture, trailer, isVideo, onHover, onMouseOut}) => (
   <article
     className="small-movie-card catalog__movies-card"
-    onMouseEnter={onHover(id)}
+    onMouseEnter={onHover}
     onMouseOut={onMouseOut}
   >
     {isVideo ?
-      <VideoPlayer src={trailer} isPlaying={true} muted={true} isControls={false} isFullScreen={false} />
+      <VideoPreview trailer={trailer} />
       : <Fragment>
-        <div className="small-movie-card__image" onClick={handleCardClick(id, onMovieTitleClick)}>
-          <img
-            src={`img/${picture}`}
-            alt={name}
-            width="280"
-            height="175"
-          />
-        </div>
-        <h3 className="small-movie-card__title" onClick={handleCardClick(id, onMovieTitleClick)}>
-          <a
+        <Link to={`${AppRoute.FILMS}/${id}`}>
+          <div className="small-movie-card__image">
+            <img
+              src={picture}
+              alt={name}
+              width="280"
+              height="175"
+            />
+          </div>
+        </Link>
+        <h3 className="small-movie-card__title">
+          <Link
             className="small-movie-card__link"
-            href="#"
+            to={`${AppRoute.FILMS}/${id}`}
           >
             {name}
-          </a>
+          </Link>
         </h3>
       </Fragment>
     }
@@ -42,10 +39,9 @@ const MovieCard = ({id, name, picture, trailer, isVideo, onMovieTitleClick, onHo
 MovieCard.propTypes = {
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   trailer: PropTypes.string.isRequired,
   isVideo: PropTypes.bool.isRequired,
-  onMovieTitleClick: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   onMouseOut: PropTypes.func.isRequired,
 };

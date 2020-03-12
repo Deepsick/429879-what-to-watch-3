@@ -1,12 +1,7 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import Tab from './tab.jsx';
-
-export const TabName = {
-  OVERVIEW: `overview`,
-  DETAILS: `details`,
-  REVIEWS: `reviews`,
-};
+import {TabName} from '../../const.js';
 
 const handleTabClick = (tab, setActiveItem) => {
   return (evt) => {
