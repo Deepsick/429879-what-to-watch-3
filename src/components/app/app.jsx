@@ -30,7 +30,7 @@ class App extends PureComponent {
       shownMoviesCount,
       authStatus,
       promo,
-      avatar,
+      avatar, 
     } = this.props;
 
     return (
