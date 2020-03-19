@@ -119,18 +119,18 @@ const Operation = {
   loadFavorites: () => (dispatch, getState, api) => {
     return api.get(Path.FAVORITE)
       .then((response) => {
-        dispatch(ActionCreator.loadFavorites(response.data));
+        dispatch(ActionCreator.loadFavorites(moviesAdapter(response.data)));
       });
   },
   postFavorite: (id, status) => (dispatch, getState, api) => {
     return api.post(`${Path.FAVORITE}/${id}/${status}`)
       .then((response) => {
-        const {movies} = getState().data;
+        const movies = [...getState().data.movies];
         const favorite = response.data;
         const {id: favoriteId} = favorite;
-        const index = movies.findIndex = ((movie) => movie.id === favoriteId);
-        const newMovies = [...movies.slice(0, index), favorite, ...movies.slice(index + 1)];
-        dispatch(ActionCreator.loadMovies(moviesAdapter(newMovies)));
+        const index = movies.findIndex((movie) => movie.id === +favoriteId);
+        movies[index].isFavorite = !movies[index].isFavorite;
+        dispatch(ActionCreator.loadMovies(movies));
       });
   },
 };
@@ -148,6 +148,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_COMMENTS:
       return extend(state, {
         comments: action.payload,
+      });
+    case ActionType.LOAD_FAVORITES:
+      return extend(state, {
+        favorites: action.payload,
       });
     case ActionType.GET_ERRORS:
       return extend(state, {

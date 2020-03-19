@@ -2,7 +2,7 @@ import {extend} from '../../utils.js';
 import {Auth, Path} from '../../const';
 
 const initialState = {
-  authorizationStatus: Auth.NO_AUTH,
+  authorizationStatus: null,
   authInfo: {},
 };
 
@@ -33,9 +33,6 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setAuthStatus(Auth.AUTH));
         dispatch(ActionCreator.setAuthInfo(response.data));
-      })
-      .catch((err) => {
-        throw err;
       });
   },
 

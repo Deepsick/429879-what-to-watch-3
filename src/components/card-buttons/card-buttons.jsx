@@ -41,9 +41,9 @@ const CardButtons = ({id, isAddReview, isFavorite, onClick}) => (
 );
 
 CardButtons.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   isAddReview: PropTypes.bool.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 };
 

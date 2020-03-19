@@ -1,28 +1,60 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Operation} from '../../reducer/user/user';
+import {getAuthStatus} from '../../reducer/user/selectors.js';
 import Logo from '../logo/logo.jsx';
+import Spinner from '../spinner/spinner.jsx';
+import {Auth, AppRoute} from '../../const';
 
 class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      error: null,
+    };
+
     this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  handleSubmit(evt) {
-    const {onSubmit} = this.props;
+  _handleSubmit(evt) {
+    const {login} = this.props;
     evt.preventDefault();
 
-    onSubmit({
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value,
+    const email = this.emailRef.current.value;
+    const password = this.passwordRef.current.value;
+
+    if (!email) {
+      return this.setState({error: `Введите email`});
+    }
+
+    if (!password) {
+      return this.setState({error: `Введите пароль`});
+    }
+    this.setState({error: null});
+    return login({
+      email,
+      password,
     });
   }
 
   render() {
+    const {authStatus} = this.props;
+    const {error} = this.state;
+
+    if (authStatus === null) {
+      return <Spinner />;
+    }
+
+    if (authStatus === Auth.AUTH) {
+      return <Redirect to={AppRoute.INDEX} />;
+    }
+
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
@@ -31,7 +63,12 @@ class SignIn extends PureComponent {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={this.handleSubmit}>
+          <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
+            {error &&
+              <div className="sign-in__message">
+                {error}
+              </div>
+            }
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input
@@ -80,8 +117,18 @@ class SignIn extends PureComponent {
   }
 }
 
+const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(Operation.login(authData));
+  },
+});
+
 SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-export default SignIn;
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

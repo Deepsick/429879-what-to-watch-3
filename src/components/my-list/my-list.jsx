@@ -1,31 +1,47 @@
-import React, {memo} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Footer from '../footer/footer.jsx';
 import MoviesList from '../movies-list/movies-list.jsx';
 import {getFavorites} from '../../reducer/data/selectors.js';
+import {Operation} from '../../reducer/data/data.js';
 import Logo from '../logo/logo.jsx';
 import Avatar from '../avatar/avatar.jsx';
 import {getAuthStatus, getAvatar} from '../../reducer/user/selectors.js';
 
-const MyList = ({favorites, isAuth, avatar}) => (
-  <div className="user-page">
-    <header className="page-header user-page__head">
-      <Logo />
+class MyList extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-      <h1 className="page-title user-page__title">My list</h1>
+  componentDidMount() {
+    const {loadFavorites} = this.props;
+    loadFavorites();
+  }
 
-      <Avatar isAuth={isAuth} avatar={avatar} />
-    </header>
+  render() {
+    const {favorites, isAuth, avatar} = this.props;
+    console.log(favorites);
+    return (
+      <div className="user-page">
+        <header className="page-header user-page__head">
+          <Logo />
 
-    <section className="catalog">
-      <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <MoviesList movies={favorites} />
-    </section>
+          <h1 className="page-title user-page__title">My list</h1>
 
-    <Footer />
-  </div>
-);
+          <Avatar isAuth={isAuth} avatar={avatar} />
+        </header>
+
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <MoviesList movies={favorites} />
+        </section>
+
+        <Footer />
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   favorites: getFavorites(state),
@@ -33,4 +49,10 @@ const mapStateToProps = (state) => ({
   avatar: getAvatar(state),
 });
 
-export default connect(mapStateToProps)(memo(MyList));
+const mapDispatchToProps = (dispatch) => ({
+  loadFavorites() {
+    dispatch(Operation.loadFavorites());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyList);

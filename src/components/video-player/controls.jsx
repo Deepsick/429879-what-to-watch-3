@@ -11,9 +11,9 @@ const getDragCoord = (duration, progress) => {
 const getRunTime = (duration, progress) => {
   const leftTime = duration - progress;
   const minutes = Math.floor(leftTime / SECONDS_IN_MINUTE);
-  const seconds = Math.floor(leftTime - minutes * SECONDS_IN_MINUTE);
+  const seconds = Math.floor(leftTime - minutes * SECONDS_IN_MINUTE).toString().padStart(2, `0`);
 
-  return `${minutes}:${seconds}`;
+  return `${minutes.toString().padStart(2, `0`)}:${seconds.toString().padStart(2, `0`)}`;
 };
 
 const handleExitButtonClick = (evt) => {

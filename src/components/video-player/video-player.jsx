@@ -1,5 +1,7 @@
 import React, {PureComponent, createRef, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getMovies} from '../../reducer/data/selectors.js';
 import Controls from './controls.jsx';
 
 class VideoPlayer extends PureComponent {
@@ -144,4 +146,8 @@ VideoPlayer.propTypes = {
   onExitButtonClick: PropTypes.func,
 };
 
-export default VideoPlayer;
+const mapStateToProps = (state) => ({
+  films: getMovies(state),
+});
+
+export default connect(mapStateToProps)(VideoPlayer);
