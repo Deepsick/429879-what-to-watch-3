@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Spinner component correctly 1`] = `
+Array [
+  <div
+    className="loader"
+  />,
+  <div
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
+    Loading...
+  </div>,
+]
+`;

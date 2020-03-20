@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render PrivateRoute component with auth correctly 1`] = `<div />`;
+
+exports[`Should render PrivateRoute component without auth correctly 1`] = `null`;
