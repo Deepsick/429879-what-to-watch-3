@@ -25,13 +25,13 @@ Array [
         <progress
           className="player__progress"
           max="100"
-          value={false}
+          value={100}
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "false%",
+              "left": "100%",
             }
           }
         >
@@ -91,11 +91,4 @@ Array [
     </div>
   </div>,
 ]
-`;
-
-exports[`Should render VideoPlayer component without controls correctly 1`] = `
-<video
-  className="player__video"
-  width="100%"
-/>
 `;

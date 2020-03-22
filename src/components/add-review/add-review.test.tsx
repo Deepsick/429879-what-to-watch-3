@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
 import {AddReview} from './add-review';
-import {movies, id, Auth, mockFunction, mockString} from '../../mocks/test-data';
+import {movies, id, Auth, mockFunction, mockString, rating} from '../../mocks/test-data';
 import {ReducerName} from '../../const';
 
 const store = configureStore([])({
@@ -31,6 +31,10 @@ it(`Should render AddReview component correctly`, () => {
             id={id}
             avatar={mockString}
             postComment={mockFunction}
+            setRating={mockFunction}
+            setComment={mockFunction}
+            rating={rating}
+            comment={mockString}
           />
         </BrowserRouter>
       </Provider>

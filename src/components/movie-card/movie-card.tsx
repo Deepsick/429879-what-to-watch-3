@@ -2,7 +2,10 @@ import * as React from 'react';
 import {Link} from 'react-router-dom';
 
 import VideoPreview from '../video-preview/video-preview';
+import withPreview from '../../hocs/with-preview/with-preview';
 import {AppRoute} from '../../const';
+
+const VideoPreviewWrapped = withPreview(VideoPreview);
 
 interface Props {
   name: string;
@@ -29,7 +32,7 @@ const MovieCard: React.FunctionComponent<Props> = ({
     onMouseOut={onMouseOut}
   >
     {isVideo ?
-      <VideoPreview trailer={trailer} />
+      <VideoPreviewWrapped trailer={trailer} />
       : <React.Fragment>
         <Link to={`${AppRoute.FILMS}/${id}`}>
           <div className="small-movie-card__image">

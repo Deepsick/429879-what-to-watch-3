@@ -12,22 +12,16 @@ import {User} from '../../types';
 interface Props {
   login: (authData: User) => void;
   authStatus: string;
-}
-
-interface State {
+  setError: (error: string | null) => void;
   error: string | null;
 }
 
-class SignIn extends React.PureComponent<Props, State> {
+class SignIn extends React.PureComponent<Props, {}> {
   private emailRef: React.RefObject<HTMLInputElement>;
   private passwordRef: React.RefObject<HTMLInputElement>;
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      error: null,
-    };
 
     this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
@@ -36,20 +30,20 @@ class SignIn extends React.PureComponent<Props, State> {
   }
 
   _handleSubmit(evt) {
-    const {login} = this.props;
+    const {login, setError} = this.props;
     evt.preventDefault();
 
     const email = this.emailRef.current.value;
     const password = this.passwordRef.current.value;
 
     if (!email) {
-      return this.setState({error: `Введите email`});
+      return setError(`Введите email`);
     }
 
     if (!password) {
-      return this.setState({error: `Введите пароль`});
+      return setError(`Введите пароль`);
     }
-    this.setState({error: null});
+    setError(null);
     return login({
       email,
       password,
@@ -57,8 +51,7 @@ class SignIn extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const {authStatus} = this.props;
-    const {error} = this.state;
+    const {authStatus, error} = this.props;
 
     if (authStatus === null) {
       return <Spinner />;

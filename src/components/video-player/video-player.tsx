@@ -8,48 +8,43 @@ import {Movie} from '../../types';
 interface Props {
   films: Movie[];
   id: number;
-  isControls: boolean;
-}
-
-interface State {
+  setLoading: (isLoading: boolean) => void;
+  setPlaying: (isPlaying: boolean) => void;
+  setProgress: (progress: number) => void;
+  setDuration: (duration: number) => void;
   isLoading: boolean;
-  film: string;
   isPlaying: boolean;
-  progress: number;
   duration: number;
+  progress: number;
 }
 
-class VideoPlayer extends React.PureComponent<Props, State> {
+class VideoPlayer extends React.PureComponent<Props, {}> {
   private _videoRef: React.RefObject<HTMLVideoElement>;
 
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
 
-    this.state = {
-      isLoading: true,
-      film: props.src || this._getFilmById(),
-      isPlaying: true,
-      progress: 0,
-      duration: 0,
-    };
-
     this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
     this._handleFullScreenButtonClick = this._handleFullScreenButtonClick.bind(this);
   }
 
   componentDidMount() {
-    const {film, isPlaying} = this.state;
+    const {
+      isPlaying,
+      setLoading,
+      setDuration,
+      setPlaying,
+      setProgress,
+    } = this.props;
 
     const video = this._videoRef.current;
 
-    video.src = film;
+    video.src = this._getFilmById();
 
     video.oncanplaythrough = () => {
-      this.setState({
-        isLoading: false,
-        duration: video.duration,
-      });
+      setLoading(false);
+      setDuration(video.duration);
 
       if (isPlaying) {
         video.play();
@@ -59,20 +54,14 @@ class VideoPlayer extends React.PureComponent<Props, State> {
     };
 
     video.onplay = () => {
-      this.setState({
-        isPlaying: true,
-      });
+      setPlaying(true);
     };
 
     video.onpause = () => {
-      this.setState({
-        isPlaying: false,
-      });
+      setPlaying(false);
     };
 
-    video.ontimeupdate = () => this.setState({
-      progress: Math.floor(video.currentTime),
-    });
+    video.ontimeupdate = () => setProgress(Math.floor(video.currentTime));
   }
 
   componentWillUnmount() {
@@ -92,7 +81,7 @@ class VideoPlayer extends React.PureComponent<Props, State> {
 
   _handlePlayButtonClick() {
     const video = this._videoRef.current;
-    const {isPlaying} = this.state;
+    const {isPlaying} = this.props;
     if (isPlaying) {
       video.pause();
     } else {
@@ -106,27 +95,22 @@ class VideoPlayer extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const {isControls} = this.props;
-    const {isPlaying, progress, duration} = this.state;
+    const {isPlaying, progress, duration} = this.props;
 
     return (
       <React.Fragment>
         <video
           ref={this._videoRef}
           width='100%'
-          // poster={poster || ``}
           className="player__video"
         ></video>
-        {isControls &&
-          <Controls
-            onPlayButtonClick={this._handlePlayButtonClick}
-            onFullScreenButtonClick={this._handleFullScreenButtonClick}
-            isPlaying={isPlaying}
-            duration={duration}
-            progress={progress}
-          />
-        }
-
+        <Controls
+          onPlayButtonClick={this._handlePlayButtonClick}
+          onFullScreenButtonClick={this._handleFullScreenButtonClick}
+          isPlaying={isPlaying}
+          duration={duration}
+          progress={progress}
+        />
       </React.Fragment>
     );
   }

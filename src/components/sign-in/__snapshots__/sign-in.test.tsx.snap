@@ -49,6 +49,11 @@ exports[`Should render SignIn component without auth correctly 1`] = `
       onSubmit={[Function]}
     >
       <div
+        className="sign-in__message"
+      >
+        Невозможно получить данные
+      </div>
+      <div
         className="sign-in__fields"
       >
         <div

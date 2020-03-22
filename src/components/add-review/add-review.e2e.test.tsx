@@ -38,13 +38,16 @@ it(`Should call callback on form submit`, () => {
             id={id}
             avatar={mockString}
             postComment={onFormSubmit}
+            setRating={mockFunction}
+            setComment={mockFunction}
+            rating={rating}
+            comment={comment}
           />
         </BrowserRouter>
       </Provider>
   );
 
   const addReview = wrapper.find(AddReview);
-  addReview.setState({comment, rating});
   addReview.update();
   const form = addReview.find(`.add-review__form`);
   form.simulate(`submit`, {
@@ -54,4 +57,69 @@ it(`Should call callback on form submit`, () => {
   expect(onFormSubmit.mock.calls.length).toBe(1);
   expect(onFormSubmit.mock.calls[0][0]).toBe(id);
   expect(onFormSubmit.mock.calls[0][1]).toMatchObject(review);
+});
+
+it(`Should call callback on rating input change`, () => {
+  const onInputChange = jest.fn((...args) => [...args]);
+  const {rating, comment} = review;
+
+  const wrapper = Enzyme.mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <AddReview
+            movies={movies}
+            isAuth={Auth.AUTH}
+            id={id}
+            avatar={mockString}
+            postComment={mockFunction}
+            setRating={onInputChange}
+            setComment={mockFunction}
+            rating={rating}
+            comment={comment}
+          />
+        </BrowserRouter>
+      </Provider>
+  );
+
+  const addReview = wrapper.find(AddReview);
+  addReview.update();
+  const ratingInput = addReview.find(`.rating__input`).at(0).instance();
+  const ratingBlock = addReview.find(`.rating__stars`);
+  ratingBlock.simulate(`change`, {target: ratingInput});
+
+  expect(onInputChange.mock.calls.length).toBe(1);
+  expect(onInputChange.mock.calls[0][0]).toBe(+ratingInput.value);
+});
+
+
+it(`Should call callback on comment input change`, () => {
+  const onInputChange = jest.fn((...args) => [...args]);
+  const {rating, comment} = review;
+
+  const wrapper = Enzyme.mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <AddReview
+            movies={movies}
+            isAuth={Auth.AUTH}
+            id={id}
+            avatar={mockString}
+            postComment={mockFunction}
+            setRating={mockFunction}
+            setComment={onInputChange}
+            rating={rating}
+            comment={comment}
+          />
+        </BrowserRouter>
+      </Provider>
+  );
+
+  const addReview = wrapper.find(AddReview);
+  addReview.update();
+  const commentInput = addReview.find(`.add-review__textarea`);
+  commentInput.instance().value = comment;
+  commentInput.simulate(`change`);
+
+  expect(onInputChange.mock.calls.length).toBe(1);
+  expect(onInputChange.mock.calls[0][0]).toBe(comment);
 });

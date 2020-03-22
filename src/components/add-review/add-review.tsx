@@ -17,21 +17,15 @@ interface Props {
   id: number;
   avatar: string;
   postComment: (id: number, comment: CommentPost) => void;
-}
-
-interface State {
-  comment: string;
+  setRating: (rating: number | null) => void;
+  setComment: (comment: string) => void;
   rating: number | null;
+  comment: string;
 }
 
-class AddReview extends React.PureComponent<Props, State> {
+class AddReview extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
-
-    this.state = {
-      comment: ``,
-      rating: null,
-    };
 
     this._handleTextFieldChange = this._handleTextFieldChange.bind(this);
     this._handleRadioFieldsChange = this._handleRadioFieldsChange.bind(this);
@@ -40,12 +34,14 @@ class AddReview extends React.PureComponent<Props, State> {
   }
 
   _handleTextFieldChange(evt) {
-    this.setState({comment: evt.target.value});
+    const {setComment} = this.props;
+    setComment(evt.target.value);
   }
 
   _handleRadioFieldsChange(evt) {
+    const {setRating} = this.props;
     const checked = evt.target.value;
-    this.setState({rating: +checked});
+    setRating(+checked);
   }
 
   _validateTextInput(comment) {
@@ -57,7 +53,7 @@ class AddReview extends React.PureComponent<Props, State> {
   }
 
   _isButtonDisabled() {
-    const {comment, rating} = this.state;
+    const {comment, rating} = this.props;
 
     const isCommentValid = this._validateTextInput(comment);
     const isRatingValid = this._validateRating(rating);
@@ -66,8 +62,7 @@ class AddReview extends React.PureComponent<Props, State> {
 
   _handleSubmit(evt) {
     evt.preventDefault();
-    const {postComment, id} = this.props;
-    const {comment, rating} = this.state;
+    const {postComment, id, comment, rating} = this.props;
 
     postComment(id, {
       rating,

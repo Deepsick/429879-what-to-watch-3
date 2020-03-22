@@ -10,9 +10,15 @@ import VideoPlayer from '../video-player/video-player';
 import MyList from '../my-list/my-list';
 import PrivateRoute from '../private-route/private-route';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import withError from '../../hocs/with-error/with-error';
+import withReviewState from '../../hocs/with-review-state/with-review-state';
+import withVideo from '../../hocs/with-video/with-video';
 import {AppRoute, TabName} from '../../const';
 
 const MoviePageWrapped = withActiveItem(MoviePage);
+const SignInWrapped = withError(SignIn);
+const AddReviewWrapped = withReviewState(AddReview);
+const VideoPlayerWrapped = withVideo(VideoPlayer);
 
 const App: React.FunctionComponent<{}> = () => (
   <Router history={history}>
@@ -25,12 +31,12 @@ const App: React.FunctionComponent<{}> = () => (
       <Route
         exact={true}
         path={AppRoute.LOGIN}
-        component={SignIn}
+        component={SignInWrapped}
       />
       <PrivateRoute
         exact={true}
         path={`${AppRoute.FILMS}/:id${AppRoute.REVIEW}`}
-        Component={AddReview}
+        Component={AddReviewWrapped}
       />
       <PrivateRoute
         exact={true}
@@ -38,10 +44,7 @@ const App: React.FunctionComponent<{}> = () => (
         Component={MyList}
       />
       <Route exact path={`${AppRoute.PLAYER}/:id`} render={({match}) => (
-        <VideoPlayer
-          isControls={true}
-          muted={false}
-          isPlaying={true}
+        <VideoPlayerWrapped
           id={match.params.id}
         />
       )} />

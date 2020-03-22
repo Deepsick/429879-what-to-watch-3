@@ -92,6 +92,12 @@ const Operation = {
         const {id: favoriteId} = favorite;
         const index = movies.findIndex((movie) => movie.id === +favoriteId);
         movies[index].isFavorite = !movies[index].isFavorite;
+        
+        const promo = getState().data.promo;
+        if (id === promo.id) {
+          promo.isFavorite = !promo.isFavorite;
+          dispatch(ActionCreator.loadPromo(promo));
+        }
         dispatch(ActionCreator.loadMovies(movies));
       });
   },

@@ -5,6 +5,7 @@ export const moviesCount = 8;
 export const muted = true;
 export const isPlaying = true;
 export const duration = 1000;
+export const rating = 12345;
 export const genre = `drama`;
 export const trailer = `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`;
 export const isVideo = false;

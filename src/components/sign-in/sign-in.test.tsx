@@ -5,7 +5,7 @@ import configureStore from "redux-mock-store";
 import {BrowserRouter} from 'react-router-dom';
 
 import {SignIn} from './sign-in';
-import {mockFunction, Auth} from '../../mocks/test-data';
+import {mockFunction, Auth, error} from '../../mocks/test-data';
 import {ReducerName} from '../../const';
 
 const mockStore = configureStore([]);
@@ -22,6 +22,8 @@ it(`Should render SignIn component with auth correctly`, () => {
           <SignIn
             login={mockFunction}
             authStatus={Auth.AUTH}
+            setError={mockFunction}
+            error={error}
           />
         </BrowserRouter>
       </Provider>
@@ -43,6 +45,8 @@ it(`Should render SignIn component without auth correctly`, () => {
           <SignIn
             login={mockFunction}
             authStatus={Auth.NO_AUTH}
+            setError={mockFunction}
+            error={error}
           />
         </BrowserRouter>
       </Provider>
