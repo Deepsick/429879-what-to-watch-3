@@ -27,8 +27,8 @@ interface Props {
   avatar: string;
   shownMoviesCount: number;
   setGenre: (genre: string) => void;
-  addShownMovies: () => void;
-  postFavorite: (id: number, status: boolean) => void;
+  onShowMoreButtonClick: () => void;
+  onFavoriteButtonClick: (id: number, status: boolean) => void;
 }
 
 const filterMoviesByGenre = (movies, genre) => {
@@ -45,8 +45,8 @@ const Main: React.FunctionComponent<Props> = ({
   activeGenre,
   setGenre,
   shownMoviesCount,
-  addShownMovies,
-  postFavorite,
+  onShowMoreButtonClick,
+  onFavoriteButtonClick,
   isAuth,
   avatar,
 }: Props) => {
@@ -93,7 +93,7 @@ const Main: React.FunctionComponent<Props> = ({
                 id={id}
                 isAddReview={false}
                 isFavorite={isFavorite}
-                onClick={postFavorite}
+                onClick={onFavoriteButtonClick}
               />
             </div>
           </div>
@@ -113,7 +113,7 @@ const Main: React.FunctionComponent<Props> = ({
             movies={filteredMovies.slice(START_INDEX, shownMoviesCount)}
           />
           <ShowMoreButton
-            onClick={addShownMovies}
+            onClick={onShowMoreButtonClick}
             isShown={isShowMoreButtonShown}
           />
         </section>
@@ -137,13 +137,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setGenre(genre));
     dispatch(ActionCreator.resetShownMovies());
   },
-  addShownMovies() {
+  onShowMoreButtonClick() {
     dispatch(ActionCreator.addShownMovies());
   },
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  postFavorite(id, status) {
+  onFavoriteButtonClick(id, status) {
     dispatch(Operation.postFavorite(id, status));
   },
 });

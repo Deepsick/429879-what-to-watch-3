@@ -40,7 +40,7 @@ it(`Should call callback MoviePage component mount`, () => {
             avatar={mockString}
             comments={comments}
             loadComments={onMount}
-            postFavorite={mockFunction}
+            onFavoriteButtonClick={mockFunction}
             setActiveItem={mockFunction}
           />
         </BrowserRouter>

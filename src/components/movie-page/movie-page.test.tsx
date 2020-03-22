@@ -33,7 +33,7 @@ it(`Should render MoviePage component correctly`, () => {
             avatar={mockString}
             comments={comments}
             loadComments={mockFunction}
-            postFavorite={mockFunction}
+            onFavoriteButtonClick={mockFunction}
             setActiveItem={mockFunction}
           />
         </BrowserRouter>

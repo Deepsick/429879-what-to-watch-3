@@ -25,7 +25,7 @@ interface Props {
   avatar: string;
   comments: CommentGet[];
   loadComments: (id: number) => void;
-  postFavorite: (id: number, status: boolean) => void;
+  onFavoriteButtonClick: (id: number, status: boolean) => void;
   setActiveItem: (item: string) => void;
 }
 
@@ -52,7 +52,15 @@ class MoviePage extends React.PureComponent<Props, {}> {
   }
 
   render() {
-    const {postFavorite, comments, active, setActiveItem, isAuth, avatar, movies} = this.props;
+    const {
+      onFavoriteButtonClick,
+      comments,
+      active,
+      setActiveItem,
+      isAuth,
+      avatar,
+      movies,
+    } = this.props;
 
     if (movies.length === 0) {
       return <Spinner />;
@@ -100,7 +108,7 @@ class MoviePage extends React.PureComponent<Props, {}> {
                 </p>
                 <CardButtons
                   isAddReview={true}
-                  onClick={postFavorite}
+                  onClick={onFavoriteButtonClick}
                   isFavorite={isFavorite}
                   id={id} />
               </div>
@@ -163,7 +171,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadComments(id) {
     dispatch(Operation.loadComments(id));
   },
-  postFavorite(id, status) {
+  onFavoriteButtonClick(id, status) {
     dispatch(Operation.postFavorite(id, status));
   },
 });

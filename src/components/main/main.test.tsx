@@ -37,8 +37,8 @@ it(`Should render Main component correctly`, () => {
             activeGenre={genre}
             isAuth={Auth.AUTH}
             setGenre={mockFunction}
-            addShownMovies={mockFunction}
-            onPlayButtonClick={mockFunction}
+            onShowMoreButtonClick={mockFunction}
+            onFavoriteButtonClick={mockFunction}
             shownMoviesCount={moviesCount}
           />
         </Router>
